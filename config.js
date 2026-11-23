@@ -70,10 +70,12 @@ window.WIZARDS = {
           {
             name: "izby", type: "choice", required: true, autoNext: true,
             options: [
-              { value: "1", label: "1-izbový / garsónka", multiplier: 1.08 },
+              { value: "garsonka", label: "Garsónka", multiplier: 1.1 },
+              { value: "1", label: "1-izbový", multiplier: 1.08 },
               { value: "2", label: "2-izbový", multiplier: 1.03 },
               { value: "3", label: "3-izbový", multiplier: 1.0 },
-              { value: "4", label: "4+ izbový", multiplier: 0.97 },
+              { value: "4", label: "4-izbový", multiplier: 0.98 },
+              { value: "5", label: "5+ izbový", multiplier: 0.96 },
             ],
           },
         ],
