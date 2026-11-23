@@ -619,3 +619,43 @@ body.modal-open { overflow: hidden; }
 /* Poznámka o spracovaní údajov (namiesto checkboxu) */
 .privacy-note { display: flex; gap: 8px; align-items: flex-start; margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.45; }
 .privacy-note .ic { flex-shrink: 0; margin-top: 1px; color: var(--accent); }
+
+/* Odber noviniek – farebná verzia */
+.newsletter {
+  position: relative; overflow: hidden; border: 0; color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 55%, var(--accent-2) 100%);
+  box-shadow: 0 24px 50px -20px rgba(79, 70, 229, .55);
+}
+.newsletter::before, .newsletter::after { content: ""; position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .08); pointer-events: none; }
+.newsletter::before { width: 320px; height: 320px; right: -80px; top: -140px; }
+.newsletter::after { width: 200px; height: 200px; left: -60px; bottom: -110px; }
+.newsletter > * { position: relative; z-index: 1; }
+.newsletter__icon { background: rgba(255, 255, 255, .18); color: #fff; }
+.newsletter h3 { color: #fff; font-size: 1.4rem; }
+.newsletter__text p { color: rgba(255, 255, 255, .85); }
+.newsletter__row input { border-color: transparent; box-shadow: 0 8px 20px -10px rgba(15, 23, 42, .4); }
+.newsletter__row input:focus { border-color: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, .3); }
+.newsletter__row input.invalid { border-color: #fecaca; box-shadow: 0 0 0 4px rgba(254, 202, 202, .45); }
+.newsletter__row .btn { background: #0f172a; color: #fff; box-shadow: 0 8px 20px -8px rgba(15, 23, 42, .6); }
+.newsletter__row .btn:hover { background: #1e293b; }
+.newsletter .consent { color: rgba(255, 255, 255, .85); }
+.newsletter .consent a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.newsletter .consent input { accent-color: #fff; }
+.newsletter .consent.invalid { color: #fecaca; }
+.newsletter__msg.err-msg { color: #fecaca; font-weight: 500; }
+.newsletter__done { background: rgba(255, 255, 255, .15); color: #fff; }
+.newsletter__perks { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 14px 0 0; padding: 0; list-style: none; font-size: .85rem; font-weight: 500; color: #fff; }
+.newsletter__perks li { display: inline-flex; align-items: center; gap: 6px; }
+.newsletter__perks .ic { display: inline-block; }
+/* Odber noviniek – tmavá varianta (odlíšenie od záverečného CTA) */
+.newsletter {
+  background: radial-gradient(600px 300px at 90% -20%, rgba(124, 58, 237, .55), transparent 60%),
+              radial-gradient(500px 260px at 0% 120%, rgba(37, 99, 235, .5), transparent 60%),
+              #0f172a;
+  box-shadow: 0 24px 50px -20px rgba(15, 23, 42, .6);
+}
+.newsletter::before, .newsletter::after { background: rgba(255, 255, 255, .04); }
+.newsletter__icon { background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.newsletter__perks .ic { color: #86efac; }
+.newsletter__row .btn { background: var(--accent); box-shadow: 0 8px 24px -8px rgba(37, 99, 235, .8); }
+.newsletter__row .btn:hover { background: #3b82f6; }
