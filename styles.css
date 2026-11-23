@@ -762,3 +762,4 @@ img { max-width: 100%; height: auto; }
 .result__back { margin-top: 18px; }
 .result__back .ic { display: inline-block; }
 .brokers { align-items: end; } .brokers__intro { position: static; }
+.section h2, .platform h2, .brokers h2 { line-height: 1.2; }
