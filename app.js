@@ -70,7 +70,7 @@
     else renderStep(step, wrap);
     form.appendChild(wrap);
 
-    const firstInput = form.querySelector("input[type=text], input[type=number], select");
+    const firstInput = form.querySelector("input[type=text], input[type=number]");
     if (firstInput && window.innerWidth > 680) firstInput.focus();
   }
 
@@ -129,18 +129,13 @@
         field.appendChild(box);
         if (!(f.autoNext && step.fields.length === 1)) hasNextButton = true;
       } else if (f.type === "select") {
-        field.appendChild(el("label", { for: f.name }, f.label));
-        const s = el("select", { id: f.name, name: f.name });
-        const ph = el("option", { value: "", disabled: "", selected: "" }, "Vyberte…");
-        s.appendChild(ph);
-        f.options.forEach((o) => {
-          const opt = el("option", { value: o.value }, o.label);
-          if (val === o.value) opt.selected = true;
-          s.appendChild(opt);
-        });
-        s.classList.toggle("empty", !s.value);
-        s.onchange = () => { state.answers[f.name] = s.value; s.classList.toggle("empty", !s.value); field.classList.remove("invalid"); };
-        field.appendChild(s);
+        field.appendChild(el("label", { id: `${f.name}-label` }, f.label));
+        field.appendChild(customSelect(f, val, (v, o) => {
+          state.answers[f.name] = v;
+          field.classList.remove("invalid");
+          // príklad v závislom poli (napr. mesto podľa kraja)
+          if (o.city) document.querySelectorAll(`[data-ph-from="${f.name}"]`).forEach((i) => (i.placeholder = `napr. ${o.city}`));
+        }));
         hasNextButton = true;
       } else if (f.type === "toggle") {
         const l = el("label", { class: "toggle" }, `<input type="checkbox" ${val ? "checked" : ""}/> ${f.label}`);
@@ -149,7 +144,14 @@
         hasNextButton = true;
       } else {
         field.appendChild(el("label", { for: f.name }, f.label));
-        const i = el("input", { id: f.name, name: f.name, type: f.type, placeholder: f.placeholder || "" });
+        let ph = f.placeholder || "";
+        if (f.placeholderFrom) {
+          const src = step.fields.find((x) => x.name === f.placeholderFrom);
+          const chosen = src?.options.find((o) => o.value === state.answers[f.placeholderFrom]);
+          if (chosen?.city) ph = `napr. ${chosen.city}`;
+        }
+        const i = el("input", { id: f.name, name: f.name, type: f.type, placeholder: ph });
+        if (f.placeholderFrom) i.dataset.phFrom = f.placeholderFrom;
         if (f.type === "number") { i.inputMode = "numeric"; if (f.min != null) i.min = f.min; if (f.max != null) i.max = f.max; }
         if (val != null) i.value = val;
         i.oninput = () => { state.answers[f.name] = f.type === "number" ? (i.value === "" ? null : Number(i.value)) : i.value.trim(); field.classList.remove("invalid"); };
@@ -162,6 +164,72 @@
 
     wrap.appendChild(body);
     if (hasNextButton) wrap.appendChild(el("button", { type: "submit", class: "btn btn--primary" }, `Pokračovať ${ICON("arrowRight", 18)}`));
+  }
+
+  // ---------- Vlastný selectbox v grafike wizarda ----------
+  function customSelect(f, val, onPick) {
+    const wrap = el("div", { class: "cselect" });
+    const current = f.options.find((o) => o.value === val);
+    const trigger = el("button", { type: "button", class: `cselect__trigger ${current ? "" : "empty"}`, id: f.name,
+      "aria-haspopup": "listbox", "aria-expanded": "false", "aria-labelledby": `${f.name}-label ${f.name}` },
+      `<span class="cselect__value">${current ? current.label : "Vyberte…"}</span><span class="cselect__chev">${ICON("chevron", 18)}</span>`);
+    const list = el("ul", { class: "cselect__list", role: "listbox", tabindex: "-1" });
+    let active = Math.max(0, f.options.indexOf(current));
+
+    f.options.forEach((o, i) => {
+      const li = el("li", { role: "option", class: `cselect__opt ${o === current ? "selected" : ""}`, "aria-selected": o === current ? "true" : "false" },
+        `<span>${o.label}</span><span class="cselect__check">${ICON("check", 16)}</span>`);
+      li.onmouseenter = () => setActive(i);
+      li.onclick = () => pick(i);
+      list.appendChild(li);
+    });
+
+    const items = () => [...list.children];
+    function setActive(i) {
+      active = (i + f.options.length) % f.options.length;
+      items().forEach((li, j) => li.classList.toggle("active", j === active));
+      items()[active].scrollIntoView({ block: "nearest" });
+    }
+    function open() {
+      document.querySelectorAll(".cselect.open").forEach((x) => x !== wrap && x.classList.remove("open"));
+      wrap.classList.add("open");
+      trigger.setAttribute("aria-expanded", "true");
+      setActive(active);
+    }
+    function close(focus = true) {
+      wrap.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+      if (focus) trigger.focus();
+    }
+    function pick(i) {
+      const o = f.options[i];
+      items().forEach((li, j) => { li.classList.toggle("selected", j === i); li.setAttribute("aria-selected", j === i); });
+      trigger.querySelector(".cselect__value").textContent = o.label;
+      trigger.classList.remove("empty");
+      active = i;
+      onPick(o.value, o);
+      close();
+    }
+
+    trigger.onclick = () => (wrap.classList.contains("open") ? close() : open());
+    trigger.onkeydown = (e) => {
+      const isOpen = wrap.classList.contains("open");
+      if (["ArrowDown", "ArrowUp"].includes(e.key)) {
+        e.preventDefault();
+        if (!isOpen) return open();
+        setActive(active + (e.key === "ArrowDown" ? 1 : -1));
+      } else if ((e.key === "Enter" || e.key === " ") && isOpen) {
+        e.preventDefault(); pick(active);
+      } else if (e.key === "Escape" && isOpen) {
+        e.preventDefault(); close();
+      } else if (e.key === "Tab" && isOpen) {
+        close(false);
+      }
+    };
+    document.addEventListener("click", (e) => { if (!wrap.contains(e.target)) close(false); });
+
+    wrap.append(trigger, list);
+    return wrap;
   }
 
   function renderContact(wrap) {

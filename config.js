@@ -19,14 +19,14 @@ window.APP_CONFIG = {
 };
 
 const KRAJE = [
-  { value: "BA", label: "Bratislavský" },
-  { value: "TT", label: "Trnavský" },
-  { value: "NR", label: "Nitriansky" },
-  { value: "TN", label: "Trenčiansky" },
-  { value: "ZA", label: "Žilinský" },
-  { value: "BB", label: "Banskobystrický" },
-  { value: "PO", label: "Prešovský" },
-  { value: "KE", label: "Košický" },
+  { value: "BA", label: "Bratislavský", city: "Bratislava" },
+  { value: "TT", label: "Trnavský", city: "Trnava" },
+  { value: "NR", label: "Nitriansky", city: "Nitra" },
+  { value: "TN", label: "Trenčiansky", city: "Trenčín" },
+  { value: "ZA", label: "Žilinský", city: "Žilina" },
+  { value: "BB", label: "Banskobystrický", city: "Banská Bystrica" },
+  { value: "PO", label: "Prešovský", city: "Prešov" },
+  { value: "KE", label: "Košický", city: "Košice" },
 ];
 
 const LOKALITA_STEP = {
@@ -34,7 +34,7 @@ const LOKALITA_STEP = {
   title: "Kde sa nehnuteľnosť nachádza?",
   fields: [
     { name: "kraj", type: "select", label: "Kraj", options: KRAJE, required: true },
-    { name: "obec", type: "text", label: "Obec / mesto", placeholder: "napr. Trnava", required: true },
+    { name: "obec", type: "text", label: "Obec / mesto", placeholder: "napr. Bratislava", placeholderFrom: "kraj", required: true },
     { name: "ulica", type: "text", label: "Ulica (nepovinné)", placeholder: "pre presnejší odhad" },
   ],
 };
