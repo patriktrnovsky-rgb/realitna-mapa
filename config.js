@@ -35,7 +35,7 @@ const LOKALITA_STEP = {
   fields: [
     { name: "kraj", type: "select", label: "Kraj", options: KRAJE, required: true },
     { name: "obec", type: "text", label: "Obec / mesto", placeholder: "napr. Bratislava", placeholderFrom: "kraj", required: true },
-    { name: "ulica", type: "text", label: "Ulica (nepovinné)", placeholder: "pre presnejší odhad" },
+    { name: "ulica", type: "text", label: "Ulica", placeholder: "napr. Hlavná 12", required: true },
   ],
 };
 
