@@ -742,3 +742,20 @@ img { max-width: 100%; height: auto; }
   .brokers__intro { position: static; }
 }
 .faq__a strong { color: var(--text); font-weight: 600; }
+
+/* Karusel blogu */
+.section__head-actions { display: flex; align-items: center; gap: 20px; }
+.carousel-nav { display: flex; gap: 8px; }
+.carousel-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--line); background: #fff; color: var(--text); display: grid; place-items: center; cursor: pointer; transition: all .15s; }
+.carousel-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent); color: #fff; }
+.carousel-btn:disabled { opacity: .35; cursor: default; }
+.posts--carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; scrollbar-width: none; scroll-behavior: smooth; padding: 4px 4px 16px; margin: 0 -4px; }
+.posts--carousel::-webkit-scrollbar { display: none; }
+.posts--carousel .post { flex: 0 0 calc((100% - 40px) / 3); scroll-snap-align: start; }
+@media (max-width: 900px) { .posts--carousel .post { flex-basis: calc((100% - 20px) / 2); } }
+@media (max-width: 680px) {
+  .section__head-actions { width: 100%; justify-content: space-between; }
+  .carousel-btn { width: 40px; height: 40px; }
+  .posts--carousel { margin: 0 -4vw; padding: 4px 4vw 16px; gap: 14px; }
+  .posts--carousel .post { flex-basis: 82%; scroll-snap-align: center; }
+}

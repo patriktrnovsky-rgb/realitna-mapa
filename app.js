@@ -574,6 +574,22 @@
     $("#newsletterForm").innerHTML = `<p class="newsletter__done">${ICON("check", 20)} Výborne, ste na zozname! Prvý prehľad vám pošleme na <strong>${email.replace(/</g, "&lt;")}</strong> začiatkom mesiaca.</p>`;
   });
 
+  // Karusel blogu
+  const blogTrack = $("#blogTrack");
+  if (blogTrack) {
+    const prev = $("#blogPrev"), next = $("#blogNext");
+    const step = () => (blogTrack.querySelector(".post")?.offsetWidth || 300) + 20;
+    const sync = () => {
+      prev.disabled = blogTrack.scrollLeft <= 4;
+      next.disabled = blogTrack.scrollLeft + blogTrack.clientWidth >= blogTrack.scrollWidth - 4;
+    };
+    prev.onclick = () => blogTrack.scrollBy({ left: -step(), behavior: "smooth" });
+    next.onclick = () => blogTrack.scrollBy({ left: step(), behavior: "smooth" });
+    blogTrack.addEventListener("scroll", sync, { passive: true });
+    addEventListener("resize", sync);
+    sync();
+  }
+
   hydrateIcons();
   $("#year").textContent = new Date().getFullYear();
 })();
