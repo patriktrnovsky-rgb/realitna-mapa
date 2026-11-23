@@ -323,23 +323,23 @@
         <!-- ODBER NOVINIEK -->
         <div class="newsletter" id="newsletter">
           <div class="newsletter__text">
-            <div class="newsletter__icon"><i data-icon="mail" data-size="24"></i></div>
-            <div>
-              <h3>Prihláste sa na odber noviniek</h3>
-              <p>Raz mesačne vývoj cien nehnuteľností vo vašom regióne a tipy, ako predať výhodnejšie.</p>
-              <ul class="newsletter__perks">
-                <li><i data-icon="check" data-size="16"></i> Ceny vo vašom regióne</li>
-                <li><i data-icon="check" data-size="16"></i> Raz mesačne</li>
-                <li><i data-icon="check" data-size="16"></i> Žiadny spam</li>
-              </ul>
-            </div>
+            <span class="newsletter__eyebrow"><i data-icon="mail" data-size="16"></i> Odber noviniek</span>
+            <h3>Buďte o krok pred trhom</h3>
+            <p>Raz za mesiac vám pošleme krátky a zrozumiteľný prehľad: ako sa menia ceny bytov a domov vo vašom okolí, čo práve hýbe realitným trhom a pár praktických tipov, vďaka ktorým predáte výhodnejšie. Prečítate to za 3 minúty pri káve.</p>
+            <ul class="newsletter__perks">
+              <li><i data-icon="check" data-size="16"></i> Ceny vo vašom regióne</li>
+              <li><i data-icon="check" data-size="16"></i> Novinky a trendy z trhu</li>
+              <li><i data-icon="check" data-size="16"></i> Tipy od skúsených maklérov</li>
+            </ul>
           </div>
           <form class="newsletter__form" id="newsletterForm" novalidate>
+            <label class="newsletter__label" for="nlEmail">Kam vám máme novinky posielať?</label>
             <div class="newsletter__row">
-              <input type="email" id="nlEmail" placeholder="Váš e-mail" autocomplete="email" aria-label="Váš e-mail" />
-              <button type="submit" class="btn btn--primary">Odoberať</button>
+              <input type="email" id="nlEmail" placeholder="vas@email.sk" autocomplete="email" />
+              <button type="submit" class="btn btn--primary">Chcem novinky <i data-icon="arrowRight" data-size="18"></i></button>
             </div>
-            <label class="consent consent--sm"><input type="checkbox" id="nlGdpr" /> <span>Súhlasím so zasielaním noviniek a <a href="#">spracovaním osobných údajov</a>. Odhlásiť sa môžete kedykoľvek.</span></label>
+            <label class="consent consent--sm"><input type="checkbox" id="nlGdpr" /> <span>Súhlasím so zasielaním noviniek a <a href="#">spracovaním osobných údajov</a>.</span></label>
+            <p class="newsletter__fine">Žiadny spam. Odhlásiť sa môžete jedným kliknutím.</p>
             <p class="newsletter__msg" id="nlMsg" role="status"></p>
           </form>
         </div>

@@ -659,3 +659,23 @@ body.modal-open { overflow: hidden; }
 .newsletter__perks .ic { color: #86efac; }
 .newsletter__row .btn { background: var(--accent); box-shadow: 0 8px 24px -8px rgba(37, 99, 235, .8); }
 .newsletter__row .btn:hover { background: #3b82f6; }
+
+/* Odber noviniek – zarovnanie a text */
+.newsletter { grid-template-columns: 1.15fr 1fr; gap: 48px; padding: 40px 44px; align-items: center; }
+.newsletter__text { display: block; }
+.newsletter__eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #c4b5fd; margin-bottom: 10px; }
+.newsletter__eyebrow .ic { display: inline-block; }
+.newsletter h3 { font-size: 1.7rem; letter-spacing: -0.02em; margin: 0 0 10px; }
+.newsletter__text p { font-size: 1rem; line-height: 1.6; }
+.newsletter__perks { margin-top: 18px; }
+.newsletter__label { display: block; font-weight: 600; margin-bottom: 10px; color: #fff; }
+.newsletter__row .btn { gap: 6px; }
+.newsletter__row .btn .ic { display: inline-block; }
+.newsletter .consent--sm { margin-top: 14px; }
+.newsletter__fine { margin: 6px 0 0 26px; font-size: .78rem; color: rgba(255, 255, 255, .6); }
+@media (max-width: 900px) { .newsletter { grid-template-columns: 1fr; gap: 24px; padding: 32px; } }
+@media (max-width: 680px) {
+  .newsletter { padding: 24px 20px; }
+  .newsletter h3 { font-size: 1.4rem; }
+  .newsletter__text p { font-size: .95rem; }
+}

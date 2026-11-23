@@ -572,7 +572,7 @@
     try { if (CFG.leadEndpoint) await fetch(CFG.leadEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(sub) }); } catch (err) { console.error(err); }
     const stored = JSON.parse(localStorage.getItem("newsletter") || "[]"); stored.push(sub); localStorage.setItem("newsletter", JSON.stringify(stored));
     track("newsletter_subscribe");
-    $("#newsletterForm").innerHTML = `<p class="newsletter__done">${ICON("check", 20)} Ďakujeme, ste prihlásený. Prvé novinky vám prídu na <strong>${email.replace(/</g, "&lt;")}</strong>.</p>`;
+    $("#newsletterForm").innerHTML = `<p class="newsletter__done">${ICON("check", 20)} Výborne, ste na zozname! Prvý prehľad vám pošleme na <strong>${email.replace(/</g, "&lt;")}</strong> začiatkom mesiaca.</p>`;
   });
 
   hydrateIcons();
