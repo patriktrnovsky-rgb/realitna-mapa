@@ -23,12 +23,12 @@
   <link rel="stylesheet" href="/blog/blog.css" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Koľko stojí predaj nehnuteľnosti? Dane, poplatky a provízia v roku 2026", "description": "Náklady pri predaji bytu či domu v roku 2026: daň z príjmu a oslobodenie po 5 rokoch, zdravotné odvody, provízia makléra, energetický certifikát a kataster.", "image": "https://realitna-mapa.vercel.app/assets/blog/naklady-predaja.jpg", "datePublished": "2026-11-23", "dateModified": "2026-11-23", "inLanguage": "sk-SK", "author": {"@type": "Person", "name": "Jana"}, "publisher": {"@type": "Organization", "name": "Realitná mapka", "logo": {"@type": "ImageObject", "url": "https://realitna-mapa.vercel.app/apple-touch-icon.png"}}, "mainEntityOfPage": "https://realitna-mapa.vercel.app/blog/kolko-stoji-predaj-nehnutelnosti/"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://realitna-mapa.vercel.app/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://realitna-mapa.vercel.app/blog/"}, {"@type": "ListItem", "position": 3, "name": "Koľko stojí predaj nehnuteľnosti? Dane, poplatky a provízia v roku 2026", "item": "https://realitna-mapa.vercel.app/blog/kolko-stoji-predaj-nehnutelnosti/"}]}]}</script>
 </head>
-<body>
+<body data-page="article">
   <header class="nav">
     <div class="container nav__inner">
       <a href="/" class="logo"><img src="/assets/logo/logo-znacka.svg" alt="" width="30" height="30" /><span>Realitná <span class="accent">mapka</span></span></a>
       <div class="nav__right">
-        <a href="/?ocenit=1" class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
+        <a href="/?ocenit=1" data-open-wizard class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
         <a href="#" class="nav__login" aria-label="Prihlásiť sa"><i data-icon="user" data-size="18"></i><span>Prihlásiť sa</span></a>
       </div>
     </div>
@@ -133,7 +133,7 @@
 <p class="note">Článok má informatívny charakter a nenahrádza daňové ani právne poradenstvo. Pri konkrétnom predaji odporúčame konzultáciu s daňovým poradcom.</p>
 <aside class="article__cta">
   <div><strong>Zistite, za koľko môžete predať</strong><span>Odhad trhovej ceny zadarmo a nezáväzne, výsledok do 2 minút.</span></div>
-  <a href="/?ocenit=1" class="btn btn--primary">Oceniť nehnuteľnosť <i data-icon="arrowRight" data-size="18"></i></a>
+  <a href="/?ocenit=1" data-open-wizard class="btn btn--primary">Oceniť nehnuteľnosť <i data-icon="arrowRight" data-size="18"></i></a>
 </aside>
 
         <section class="sources" aria-labelledby="zdroje"><h2 id="zdroje">Zdroje</h2><ul><li><a href="https://finpos.sk/poradna/dan-z-predaja-nehnutelnosti/" target="_blank" rel="noopener">Finpos: Daň z predaja nehnuteľnosti 2026</a></li><li><a href="https://www.esudca.sk/blog/predaj-zdedenej-nehnutelnosti-dan-2026" target="_blank" rel="noopener">eSudca: Predaj zdedenej nehnuteľnosti a daň (2026)</a></li><li><a href="https://uctovnik24.com/sk/blog/sadzby-dane-z-prijmov-fyzickych-osob-2026/" target="_blank" rel="noopener">Účtovník24: Sadzby dane z príjmov FO 2026</a></li><li><a href="https://jaspis.sk/aktuality/konsolidacny-balik-2026-zmeny-dane-odvody-priklady" target="_blank" rel="noopener">Jaspis: Konsolidačný balík 2026, zmeny v daniach a odvodoch</a></li><li><a href="https://www.nehnutelnosti.sk/magazin-o-byvani/87592-energeticky-certifikat-bytu-pri-predaji-co-vam-hrozi-ak-ho-nemate-a-na-co-si-dat-pozor" target="_blank" rel="noopener">Nehnuteľnosti.sk: Energetický certifikát bytu pri predaji</a></li><li><a href="https://pravnenoviny.sk/energeticky-certifikat-na-dom/" target="_blank" rel="noopener">Právne noviny: Energetický certifikát na dom</a></li><li><a href="https://www.skgeodesy.sk/" target="_blank" rel="noopener">Úrad geodézie, kartografie a katastra SR</a></li></ul></section>
@@ -179,7 +179,27 @@
     <div class="container footer__inner"><img src="/assets/logo/logo-znacka.svg" alt="" width="20" height="20" /> © 2026 Realitná mapka <span class="footer__sep"></span> <a href="/blog/">Blog</a> <span class="footer__sep"></span> <a href="#">Ochrana osobných údajov</a></div>
   </footer>
   <div class="chart-tip" id="chartTip" role="status" aria-live="polite"></div>
+
+  <!-- MODAL: OCENENIE -->
+  <div class="modal" id="wizModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="wizType">
+      <div class="wizard" id="wizard">
+        <div class="wizard__top">
+          <button type="button" class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
+          <span class="wizard__type" id="wizType"></span>
+          <button type="button" class="modal__close" data-close aria-label="Zavrieť"><i data-icon="close" data-size="20"></i></button>
+        </div>
+        <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+        <form id="stepForm" novalidate></form>
+        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
+      </div>
+    </div>
+  </div>
+
   <script src="/icons.js"></script>
+  <script src="/config.js"></script>
+  <script src="/app.js"></script>
   <script src="/blog/blog.js"></script>
 </body>
 </html>

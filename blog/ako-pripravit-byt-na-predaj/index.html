@@ -23,12 +23,12 @@
   <link rel="stylesheet" href="/blog/blog.css" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Ako pripraviť byt na predaj: 7 krokov, ktoré zvýšia jeho cenu", "description": "Praktický návod, ako pripraviť byt na predaj: reálna cena, upratanie, drobné opravy, home staging, fotky aj dokumenty. Predajte rýchlejšie a výhodnejšie.", "image": "https://realitna-mapa.vercel.app/assets/blog/priprava-bytu.jpg", "datePublished": "2026-11-23", "dateModified": "2026-11-23", "inLanguage": "sk-SK", "author": {"@type": "Person", "name": "Jana"}, "publisher": {"@type": "Organization", "name": "Realitná mapka", "logo": {"@type": "ImageObject", "url": "https://realitna-mapa.vercel.app/apple-touch-icon.png"}}, "mainEntityOfPage": "https://realitna-mapa.vercel.app/blog/ako-pripravit-byt-na-predaj/"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://realitna-mapa.vercel.app/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://realitna-mapa.vercel.app/blog/"}, {"@type": "ListItem", "position": 3, "name": "Ako pripraviť byt na predaj: 7 krokov, ktoré zvýšia jeho cenu", "item": "https://realitna-mapa.vercel.app/blog/ako-pripravit-byt-na-predaj/"}]}]}</script>
 </head>
-<body>
+<body data-page="article">
   <header class="nav">
     <div class="container nav__inner">
       <a href="/" class="logo"><img src="/assets/logo/logo-znacka.svg" alt="" width="30" height="30" /><span>Realitná <span class="accent">mapka</span></span></a>
       <div class="nav__right">
-        <a href="/?ocenit=1" class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
+        <a href="/?ocenit=1" data-open-wizard class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
         <a href="#" class="nav__login" aria-label="Prihlásiť sa"><i data-icon="user" data-size="18"></i><span>Prihlásiť sa</span></a>
       </div>
     </div>
@@ -60,7 +60,7 @@
 <p>Pri stanovení ceny pamätajte, že ceny v inzerátoch nie sú cenami, za ktoré sa byty naozaj predajú. Národná banka Slovenska v 3. štvrťroku 2026 uvádzala priemernú <strong>ponukovú</strong> cenu bytov 3 497 € za m². Skutočné predajné ceny bývajú po vyjednávaní nižšie a výrazne sa líšia podľa lokality, poschodia aj stavu bytu.</p>
 <aside class="article__cta">
   <div><strong>Koľko má hodnotu váš byt?</strong><span>Odhad trhovej ceny zadarmo a nezáväzne, výsledok do 2 minút.</span></div>
-  <a href="/?typ=byt" class="btn btn--primary">Zistiť cenu bytu <i data-icon="arrowRight" data-size="18"></i></a>
+  <a href="/?typ=byt" data-open-wizard="byt" class="btn btn--primary">Zistiť cenu bytu <i data-icon="arrowRight" data-size="18"></i></a>
 </aside>
 
 <h2 id="upratanie">2. Uprace a zbavte sa nadbytočných vecí</h2>
@@ -123,7 +123,7 @@
 </ul>
 <aside class="article__cta">
   <div><strong>Pripravení na predaj? Začnite správnou cenou.</strong><span>Odhad trhovej ceny zadarmo a nezáväzne, výsledok do 2 minút.</span></div>
-  <a href="/?typ=byt" class="btn btn--primary">Oceniť byt zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+  <a href="/?typ=byt" data-open-wizard="byt" class="btn btn--primary">Oceniť byt zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
 </aside>
 
         <section class="sources" aria-labelledby="zdroje"><h2 id="zdroje">Zdroje</h2><ul><li><a href="https://nbs.sk/komentare/rast-cien-nehnutelnosti-zostava-na-zaciatku-roka-2026-solidny/" target="_blank" rel="noopener">Národná banka Slovenska: Rast cien nehnuteľností zostáva na začiatku roka 2026 solídny</a></li><li><a href="https://www.nehnutelnosti.sk/magazin-o-byvani/87592-energeticky-certifikat-bytu-pri-predaji-co-vam-hrozi-ak-ho-nemate-a-na-co-si-dat-pozor" target="_blank" rel="noopener">Nehnuteľnosti.sk: Energetický certifikát bytu pri predaji</a></li><li><a href="https://www.tatrabanka.sk/sk/zivotne-momenty/energeticky-certifikat-byvanie" target="_blank" rel="noopener">Tatra banka: Energetický certifikát pri bývaní</a></li></ul></section>
@@ -169,7 +169,27 @@
     <div class="container footer__inner"><img src="/assets/logo/logo-znacka.svg" alt="" width="20" height="20" /> © 2026 Realitná mapka <span class="footer__sep"></span> <a href="/blog/">Blog</a> <span class="footer__sep"></span> <a href="#">Ochrana osobných údajov</a></div>
   </footer>
   <div class="chart-tip" id="chartTip" role="status" aria-live="polite"></div>
+
+  <!-- MODAL: OCENENIE -->
+  <div class="modal" id="wizModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="wizType">
+      <div class="wizard" id="wizard">
+        <div class="wizard__top">
+          <button type="button" class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
+          <span class="wizard__type" id="wizType"></span>
+          <button type="button" class="modal__close" data-close aria-label="Zavrieť"><i data-icon="close" data-size="20"></i></button>
+        </div>
+        <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+        <form id="stepForm" novalidate></form>
+        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
+      </div>
+    </div>
+  </div>
+
   <script src="/icons.js"></script>
+  <script src="/config.js"></script>
+  <script src="/app.js"></script>
   <script src="/blog/blog.js"></script>
 </body>
 </html>

@@ -23,12 +23,12 @@
   <link rel="stylesheet" href="/blog/blog.css" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Blog", "name": "Blog Realitná mapka", "url": "https://realitna-mapa.vercel.app/blog/", "inLanguage": "sk-SK", "blogPost": [{"@type": "BlogPosting", "headline": "eFaktúra od roku 2027: Čo znamená pre majiteľov nehnuteľností?", "url": "https://realitna-mapa.vercel.app/blog/efaktura-2027-nehnutelnosti/", "datePublished": "2026-11-23", "author": {"@type": "Person", "name": "Jana"}}, {"@type": "BlogPosting", "headline": "Ako pripraviť byt na predaj: 7 krokov, ktoré zvýšia jeho cenu", "url": "https://realitna-mapa.vercel.app/blog/ako-pripravit-byt-na-predaj/", "datePublished": "2026-11-23", "author": {"@type": "Person", "name": "Jana"}}, {"@type": "BlogPosting", "headline": "Koľko stojí predaj nehnuteľnosti? Dane, poplatky a provízia v roku 2026", "url": "https://realitna-mapa.vercel.app/blog/kolko-stoji-predaj-nehnutelnosti/", "datePublished": "2026-11-23", "author": {"@type": "Person", "name": "Jana"}}, {"@type": "BlogPosting", "headline": "Online odhad vs. znalecký posudok: aký je medzi nimi rozdiel?", "url": "https://realitna-mapa.vercel.app/blog/online-odhad-vs-znalecky-posudok/", "datePublished": "2026-11-23", "author": {"@type": "Person", "name": "Jana"}}]}</script>
 </head>
-<body>
+<body data-page="article">
   <header class="nav">
     <div class="container nav__inner">
       <a href="/" class="logo"><img src="/assets/logo/logo-znacka.svg" alt="" width="30" height="30" /><span>Realitná <span class="accent">mapka</span></span></a>
       <div class="nav__right">
-        <a href="/?ocenit=1" class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
+        <a href="/?ocenit=1" data-open-wizard class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
         <a href="#" class="nav__login" aria-label="Prihlásiť sa"><i data-icon="user" data-size="18"></i><span>Prihlásiť sa</span></a>
       </div>
     </div>
@@ -81,7 +81,27 @@
     <div class="container footer__inner"><img src="/assets/logo/logo-znacka.svg" alt="" width="20" height="20" /> © 2026 Realitná mapka <span class="footer__sep"></span> <a href="/blog/">Blog</a> <span class="footer__sep"></span> <a href="#">Ochrana osobných údajov</a></div>
   </footer>
   <div class="chart-tip" id="chartTip" role="status" aria-live="polite"></div>
+
+  <!-- MODAL: OCENENIE -->
+  <div class="modal" id="wizModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="wizType">
+      <div class="wizard" id="wizard">
+        <div class="wizard__top">
+          <button type="button" class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
+          <span class="wizard__type" id="wizType"></span>
+          <button type="button" class="modal__close" data-close aria-label="Zavrieť"><i data-icon="close" data-size="20"></i></button>
+        </div>
+        <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+        <form id="stepForm" novalidate></form>
+        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
+      </div>
+    </div>
+  </div>
+
   <script src="/icons.js"></script>
+  <script src="/config.js"></script>
+  <script src="/app.js"></script>
   <script src="/blog/blog.js"></script>
 </body>
 </html>

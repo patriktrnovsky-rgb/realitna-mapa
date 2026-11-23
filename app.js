@@ -32,7 +32,7 @@
        <span class="type-card__label">${w.label}</span>
        <span class="type-card__btn">Oceniť ${w.label.toLowerCase()} ${ICON("arrowRight", 18)}</span>`);
     b.onclick = () => startWizard(key);
-    typesEl.appendChild(b);
+    typesEl?.appendChild(b);
   });
 
   // ---------- Modal ----------
@@ -93,7 +93,9 @@
     const t = e.target.closest("[data-open-wizard]");
     if (!t) return;
     e.preventDefault();
-    openWizard();
+    const typ = t.dataset.openWizard;
+    if (typ && WIZ[typ] && !(state.type === typ && !state.done)) startWizard(typ);
+    else openWizard();
   });
 
   function startWizard(type) {
@@ -522,6 +524,7 @@
           </div>
         </div>
         <p class="result__note">Online odhad je orientačný a vychádza z priemerných cien v regióne.</p>
+        ${document.body.dataset.page === "article" ? `<button type="button" class="btn btn--primary result__back" id="resultBack">Pokračovať v čítaní článku ${ICON("arrowRight", 18)}</button>` : ""}
       </div>`;
   }
 
@@ -542,8 +545,11 @@
   );
 
   // Mobilná CTA lišta: zobraziť po odscrollovaní z hero, skryť počas wizardu
+  document.addEventListener("click", (e) => { if (e.target.closest("#resultBack")) closeModal(); });
+
   function updateSticky() {
     const sticky = $("#stickyCta");
+    if (!sticky || !$("#start")) return;
     const heroBottom = $("#start").getBoundingClientRect().bottom;
     const wizardOpen = $("#wizModal").classList.contains("open");
     sticky.classList.toggle("show", heroBottom < 0 && !wizardOpen);
@@ -591,5 +597,5 @@
   }
 
   hydrateIcons();
-  $("#year").textContent = new Date().getFullYear();
+  if ($("#year")) $("#year").textContent = new Date().getFullYear();
 })();

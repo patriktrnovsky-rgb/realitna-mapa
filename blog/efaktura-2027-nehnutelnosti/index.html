@@ -23,12 +23,12 @@
   <link rel="stylesheet" href="/blog/blog.css" />
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "eFaktúra od roku 2027: Čo znamená pre majiteľov nehnuteľností?", "description": "Od 1. januára 2027 je eFaktúra povinná pre platiteľov DPH. Zistite, či sa týka predaja bytu či domu, prenájmu, realitných kancelárií a developerov.", "image": "https://realitna-mapa.vercel.app/assets/blog/efaktura-notebook.jpg", "datePublished": "2026-11-23", "dateModified": "2026-11-23", "inLanguage": "sk-SK", "author": {"@type": "Person", "name": "Jana"}, "publisher": {"@type": "Organization", "name": "Realitná mapka", "logo": {"@type": "ImageObject", "url": "https://realitna-mapa.vercel.app/apple-touch-icon.png"}}, "mainEntityOfPage": "https://realitna-mapa.vercel.app/blog/efaktura-2027-nehnutelnosti/"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://realitna-mapa.vercel.app/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://realitna-mapa.vercel.app/blog/"}, {"@type": "ListItem", "position": 3, "name": "eFaktúra od roku 2027: Čo znamená pre majiteľov nehnuteľností?", "item": "https://realitna-mapa.vercel.app/blog/efaktura-2027-nehnutelnosti/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Musím ako súkromná osoba vystaviť eFaktúru, keď predávam byt?", "acceptedAnswer": {"@type": "Answer", "text": "Nie. Súkromná osoba, ktorá predáva vlastný byt alebo dom mimo podnikania, faktúru nevystavuje vôbec. Predaj sa riadi kúpnou zmluvou a vkladom do katastra, eFaktúra sa vás netýka."}}, {"@type": "Question", "name": "Týka sa eFaktúra predaja nehnuteľnosti, ktorú vlastní firma?", "acceptedAnswer": {"@type": "Answer", "text": "Len ak je firma platiteľom DPH a predaj podlieha DPH, napríklad pri novostavbe do 5 rokov od kolaudácie. Ak je kupujúci podnikateľ so sídlom na Slovensku, faktúra musí byť od 1. januára 2027 elektronická. Predaj staršej nehnuteľnosti oslobodený od DPH povinnosť vystaviť eFaktúru nespúšťa."}}, {"@type": "Question", "name": "Musím ako prenajímateľ bytu vystavovať eFaktúry?", "acceptedAnswer": {"@type": "Answer", "text": "Ak nie ste platiteľom DPH a prenajímate byt oslobodene od dane, eFaktúru vystavovať nemusíte. Prenajímatelia sú však z pohľadu DPH spravidla zdaniteľné osoby a môže sa ich týkať povinnosť vedieť eFaktúru prijať. Navrhovanú výnimku pre prenajímateľov mimo podnikania si overte na Finančnej správe."}}, {"@type": "Question", "name": "Stačí od roku 2027 poslať faktúru ako PDF e-mailom?", "acceptedAnswer": {"@type": "Answer", "text": "Pri tuzemských obchodoch medzi platiteľmi DPH a podnikateľmi nie. eFaktúra musí byť v štruktúrovanom formáte podľa európskej normy EN 16931 a doručuje sa cez sieť Peppol. PDF, sken ani papierová faktúra túto povinnosť nesplnia."}}, {"@type": "Question", "name": "Čo je Peppol a ako sa doň zapojím?", "acceptedAnswer": {"@type": "Answer", "text": "Peppol je medzinárodná sieť na bezpečnú výmenu elektronických dokladov. Zapojíte sa cez certifikovaného poskytovateľa (prístupový bod), často priamo cez svoj fakturačný alebo účtovný softvér. Slovenské firmy sú v sieti identifikované podľa DIČ."}}]}]}</script>
 </head>
-<body>
+<body data-page="article">
   <header class="nav">
     <div class="container nav__inner">
       <a href="/" class="logo"><img src="/assets/logo/logo-znacka.svg" alt="" width="30" height="30" /><span>Realitná <span class="accent">mapka</span></span></a>
       <div class="nav__right">
-        <a href="/?ocenit=1" class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
+        <a href="/?ocenit=1" data-open-wizard class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
         <a href="#" class="nav__login" aria-label="Prihlásiť sa"><i data-icon="user" data-size="18"></i><span>Prihlásiť sa</span></a>
       </div>
     </div>
@@ -70,7 +70,7 @@
 <div class="callout"><strong>V skratke:</strong> súkromný predaj = kúpna zmluva, žiadna faktúra. eFaktúra sa týka len firiem a podnikateľov, ktorí sú platiteľmi DPH, pri zdaniteľných obchodoch s inými podnikateľmi na Slovensku.</div>
 <aside class="article__cta">
   <div><strong>Plánujete predaj? Začnite správnou cenou.</strong><span>Odhad trhovej ceny zadarmo a nezáväzne, výsledok do 2 minút.</span></div>
-  <a href="/?ocenit=1" class="btn btn--primary">Oceniť nehnuteľnosť zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+  <a href="/?ocenit=1" data-open-wizard class="btn btn--primary">Oceniť nehnuteľnosť zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
 </aside>
 
 <h2 id="realitky-developeri">Ako sa eFaktúra dotkne realitných kancelárií a developerov?</h2>
@@ -118,7 +118,7 @@
 <p class="note">Článok má informatívny charakter a vychádza z dostupných informácií k novembru 2026. Nenahrádza daňové poradenstvo. Pri konkrétnej situácii odporúčame konzultáciu s daňovým poradcom alebo účtovníkom.</p>
 <aside class="article__cta">
   <div><strong>Zistite, koľko má vaša nehnuteľnosť hodnotu</strong><span>Odhad trhovej ceny zadarmo a nezáväzne, výsledok do 2 minút.</span></div>
-  <a href="/?ocenit=1" class="btn btn--primary">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+  <a href="/?ocenit=1" data-open-wizard class="btn btn--primary">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
 </aside>
 
         <section class="sources" aria-labelledby="zdroje"><h2 id="zdroje">Zdroje</h2><ul><li><a href="https://www.financnasprava.sk/_img/pfsedit/Dokumenty_PFS/Podnikatelia/Dan_z_pridanej_hodnoty/efaktura/2026/2026.04.24_faq_efaktura.pdf" target="_blank" rel="noopener">Finančná správa SR: Najčastejšie otázky a odpovede k eFaktúre (9/DPH/2025/IM)</a></li><li><a href="https://jaspis.sk/aktuality/elektronicka-fakturacia-2027" target="_blank" rel="noopener">Jaspis: Povinná e-fakturácia od roku 2027</a></li><li><a href="https://www.fakturaonline.sk/podnikatelov-sprievodca/financie-a-uctovnictvo/fakturacia/e-faktura-a-dph-co-sa-meni-od-2027-a-2030" target="_blank" rel="noopener">Faktúra Online: E-faktúra a DPH, čo sa mení od 2027 a 2030</a></li><li><a href="https://www.finsider.sk/dane/prenajimate-byt-alebo-podnikate-popri-praci-kedy-sa-vas-dotkne-efaktura/" target="_blank" rel="noopener">Finsider: Prenajímate byt alebo podnikáte popri práci? Kedy sa vás dotkne eFaktúra</a></li><li><a href="https://spolivo.sk/navody/e-faktura-pri-najme" target="_blank" rel="noopener">Spolivo: E-faktúra pri nájme nehnuteľnosti od roku 2027</a></li><li><a href="https://www.grantthornton.sk/novinky/e-faktura-od-roku-2027-co-musi-vediet-kazdy-zivnostnik" target="_blank" rel="noopener">Grant Thornton: E-faktúra od roku 2027, čo musí vedieť každý živnostník</a></li><li><a href="https://epostak.sk/blog/peppol-slovensko-sprievodca" target="_blank" rel="noopener">ePošťák: Peppol Slovensko, Peppol ID a e-faktúra 2027</a></li></ul></section>
@@ -164,7 +164,27 @@
     <div class="container footer__inner"><img src="/assets/logo/logo-znacka.svg" alt="" width="20" height="20" /> © 2026 Realitná mapka <span class="footer__sep"></span> <a href="/blog/">Blog</a> <span class="footer__sep"></span> <a href="#">Ochrana osobných údajov</a></div>
   </footer>
   <div class="chart-tip" id="chartTip" role="status" aria-live="polite"></div>
+
+  <!-- MODAL: OCENENIE -->
+  <div class="modal" id="wizModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="wizType">
+      <div class="wizard" id="wizard">
+        <div class="wizard__top">
+          <button type="button" class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
+          <span class="wizard__type" id="wizType"></span>
+          <button type="button" class="modal__close" data-close aria-label="Zavrieť"><i data-icon="close" data-size="20"></i></button>
+        </div>
+        <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+        <form id="stepForm" novalidate></form>
+        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
+      </div>
+    </div>
+  </div>
+
   <script src="/icons.js"></script>
+  <script src="/config.js"></script>
+  <script src="/app.js"></script>
   <script src="/blog/blog.js"></script>
 </body>
 </html>

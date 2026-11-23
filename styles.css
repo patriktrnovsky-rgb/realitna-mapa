@@ -759,3 +759,5 @@ img { max-width: 100%; height: auto; }
   .posts--carousel { margin: 0 -4vw; padding: 4px 4vw 16px; gap: 14px; }
   .posts--carousel .post { flex-basis: 82%; scroll-snap-align: center; }
 }
+.result__back { margin-top: 18px; }
+.result__back .ic { display: inline-block; }
