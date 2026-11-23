@@ -48,7 +48,7 @@ const ZAMER_STEP = {
       name: "zamer", type: "choice", required: true, autoNext: true,
       // "hot" označuje horúci lead (prioritný telefonát)
       options: [
-        { value: "predaj_hned", label: "Čo najskôr", icon: "zap", hot: true },
+        { value: "predaj_hned", label: "Čo najskôr", icon: "timer", hot: true },
         { value: "predaj_3m", label: "Do 3 mesiacov", icon: "calendar", hot: true },
         { value: "predaj_6m", label: "Do pol roka", icon: "hourglass" },
         { value: "predaj_rok", label: "Do roka", icon: "clock" },
@@ -85,8 +85,10 @@ window.WIZARDS = {
         title: "Rozloha a poschodie",
         fields: [
           { name: "plocha", type: "number", label: "Úžitková plocha (m²)", min: 10, max: 500, required: true, area: true },
-          { name: "poschodie", type: "number", label: "Poschodie", min: -1, max: 40, required: true },
-          { name: "vytah", type: "toggle", label: "Dom má výťah", multiplier: 1.02 },
+          { name: "poschodie", type: "number", label: "Číslo poschodia bytu", placeholder: "napr. 3", hint: "Prízemie = 0", min: -1, max: 60, required: true, half: true,
+            maxFrom: "poschodiaBudova", maxFromError: "Poschodie nemôže byť vyššie ako počet poschodí" },
+          { name: "poschodiaBudova", type: "number", label: "Počet poschodí v budove", placeholder: "napr. 8", min: 1, max: 60, required: true, half: true },
+          { name: "vytah", type: "toggle", label: "Výťah v budove", sub: "Budova má funkčný výťah", multiplier: 1.02 },
         ],
       },
       {
@@ -96,10 +98,10 @@ window.WIZARDS = {
           {
             name: "stav", type: "choice", required: true, autoNext: true,
             options: [
-              { value: "novostavba", label: "Novostavba", icon: "key", multiplier: 1.15 },
-              { value: "rekonstrukcia", label: "Po kompletnej rekonštrukcii", icon: "wrench", multiplier: 1.07 },
-              { value: "dobry", label: "Dobrý, udržiavaný", icon: "thumb", multiplier: 1.0 },
-              { value: "povodny", label: "Pôvodný stav", icon: "brick", multiplier: 0.85 },
+              { value: "novostavba", label: "Novostavba", icon: "houseNew", multiplier: 1.15 },
+              { value: "rekonstrukcia", label: "Po kompletnej rekonštrukcii", icon: "roller", multiplier: 1.07 },
+              { value: "dobry", label: "Dobrý, udržiavaný", icon: "houseCheck", multiplier: 1.0 },
+              { value: "povodny", label: "Pôvodný stav", icon: "history", multiplier: 0.85 },
             ],
           },
         ],
@@ -113,13 +115,21 @@ window.WIZARDS = {
             name: "doplnky", type: "multi",
             options: [
               {
-                value: "balkon", label: "Balkón / lodžia", multiplier: 1.03,
-                // po označení sa rozbalí pole na výmeru; započíta sa 25 % plochy
-                detail: { name: "balkonM2", label: "Výmera balkóna / lodžie (m²)", placeholder: "napr. 6", min: 1, max: 100, required: true, areaWeight: 0.25 },
+                value: "balkon", label: "Balkón", multiplier: 1.03,
+                // po označení sa rozbalí pole na výmeru; areaWeight = koľko % plochy sa započíta do ceny
+                detail: { name: "balkonM2", label: "Výmera balkóna (m²)", placeholder: "napr. 5", min: 1, max: 100, required: true, areaWeight: 0.25 },
               },
-              { value: "terasa", label: "Terasa", multiplier: 1.05 },
+              {
+                value: "lodzia", label: "Lodžia", multiplier: 1.03,
+                detail: { name: "lodziaM2", label: "Výmera lodžie (m²)", placeholder: "napr. 6", min: 1, max: 100, required: true, areaWeight: 0.5 },
+              },
+              {
+                value: "terasa", label: "Terasa", multiplier: 1.05,
+                detail: { name: "terasaM2", label: "Výmera terasy (m²)", placeholder: "napr. 15", min: 1, max: 500, required: true, areaWeight: 0.25 },
+              },
               { value: "pivnica", label: "Pivnica", multiplier: 1.01 },
-              { value: "parking", label: "Parkovacie miesto / garáž", multiplier: 1.05 },
+              { value: "parking", label: "Parkovacie státie", multiplier: 1.03 },
+              { value: "garaz", label: "Garáž", multiplier: 1.05 },
             ],
           },
           {
@@ -170,10 +180,10 @@ window.WIZARDS = {
           {
             name: "stav", type: "choice", required: true, autoNext: true,
             options: [
-              { value: "novostavba", label: "Novostavba", icon: "key", multiplier: 1.15 },
-              { value: "rekonstrukcia", label: "Po rekonštrukcii", icon: "wrench", multiplier: 1.05 },
-              { value: "dobry", label: "Dobrý, udržiavaný", icon: "thumb", multiplier: 1.0 },
-              { value: "povodny", label: "Na rekonštrukciu", icon: "brick", multiplier: 0.75 },
+              { value: "novostavba", label: "Novostavba", icon: "houseNew", multiplier: 1.15 },
+              { value: "rekonstrukcia", label: "Po rekonštrukcii", icon: "roller", multiplier: 1.05 },
+              { value: "dobry", label: "Dobrý, udržiavaný", icon: "houseCheck", multiplier: 1.0 },
+              { value: "povodny", label: "Na rekonštrukciu", icon: "hammer", multiplier: 0.75 },
             ],
           },
         ],

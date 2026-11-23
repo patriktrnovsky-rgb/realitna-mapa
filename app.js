@@ -81,12 +81,12 @@
     let hasNextButton = false;
 
     step.fields.forEach((f) => {
-      const field = el("div", { class: "field", "data-name": f.name });
+      const field = el("div", { class: `field ${f.half ? "field--half" : ""}`, "data-name": f.name });
       const val = state.answers[f.name];
 
       if (f.type === "choice" || f.type === "multi") {
         if (f.label) field.appendChild(el("label", {}, f.label));
-        const box = el("div", { class: `choices ${f.type === "choice" ? "choices--single" : ""}` });
+        const box = el("div", { class: `choices ${f.type === "choice" ? "choices--single" : ""} ${f.options.some((o) => o.detail) ? "choices--list" : ""}` });
         f.options.forEach((o) => {
           const selected = f.type === "multi" ? (val || []).includes(o.value) : val === o.value;
           const c = el("button", { type: "button", class: `choice ${selected ? "selected" : ""}` },
@@ -138,7 +138,9 @@
         }));
         hasNextButton = true;
       } else if (f.type === "toggle") {
-        const l = el("label", { class: "toggle" }, `<input type="checkbox" ${val ? "checked" : ""}/> ${f.label}`);
+        const l = el("label", { class: "switch-row" },
+          `<span class="switch-row__text"><strong>${f.label}</strong>${f.sub ? `<small>${f.sub}</small>` : ""}</span>
+           <span class="switch"><input type="checkbox" role="switch" ${val ? "checked" : ""}/><span class="switch__track"><span class="switch__thumb"></span></span></span>`);
         l.querySelector("input").onchange = (e) => (state.answers[f.name] = e.target.checked);
         field.appendChild(l);
         hasNextButton = true;
@@ -158,6 +160,7 @@
         field.appendChild(i);
         hasNextButton = true;
       }
+      if (f.hint) field.appendChild(el("div", { class: "hint" }, f.hint));
       field.appendChild(el("div", { class: "err" }, "Prosím, vyplňte toto pole"));
       body.appendChild(field);
     });
@@ -262,8 +265,16 @@
     step.fields.forEach((f) => {
       const v = state.answers[f.name];
       let bad = f.required && (v == null || v === "" || (Array.isArray(v) && !v.length));
-      if (!bad && f.type === "number" && v != null) bad = (f.min != null && v < f.min) || (f.max != null && v > f.max);
-      document.querySelector(`.field[data-name="${f.name}"]`)?.classList.toggle("invalid", !!bad);
+      let msg = "Prosím, vyplňte toto pole";
+      if (!bad && f.type === "number" && v != null) {
+        bad = (f.min != null && v < f.min) || (f.max != null && v > f.max);
+        if (bad) msg = `Zadajte hodnotu od ${f.min} do ${f.max}`;
+      }
+      if (!bad && f.maxFrom && v != null && state.answers[f.maxFrom] != null && v > state.answers[f.maxFrom]) {
+        bad = true; msg = f.maxFromError || "Neplatná hodnota";
+      }
+      const fieldEl = document.querySelector(`.field[data-name="${f.name}"]`);
+      if (fieldEl) { fieldEl.classList.toggle("invalid", !!bad); const er = fieldEl.querySelector(":scope > .err"); if (er) er.textContent = msg; }
       if (bad) ok = false;
       // doplňujúce polia pri označených možnostiach
       (f.options || []).forEach((o) => {
