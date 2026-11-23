@@ -17,7 +17,7 @@
       <a href="#" class="logo"><img src="assets/logo/logo-znacka.svg" alt="" width="30" height="30" /><span>Realitná <span class="accent">mapka</span></span></a>
       <div class="nav__right">
         <a href="#blog" class="nav__link">Blog</a>
-        <a href="#start" class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
+        <a href="#ocenenie" data-open-wizard class="btn btn--ghost">Oceniť<span class="hide-sm">nehnuteľnosť</span></a>
         <a href="#" class="nav__login" aria-label="Prihlásiť sa"><i data-icon="user" data-size="18"></i><span>Prihlásiť sa</span></a>
       </div>
     </div>
@@ -35,20 +35,6 @@
       </div>
     </section>
 
-    <!-- WIZARD -->
-    <section class="wizard-wrap hidden" id="wizard">
-      <div class="container container--narrow">
-        <div class="card wizard">
-          <div class="wizard__top">
-            <button class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
-            <span class="wizard__type" id="wizType"></span>
-          </div>
-          <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
-          <form id="stepForm" novalidate></form>
-        </div>
-        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
-      </div>
-    </section>
 
     <!-- VŠETKO NA JEDNOM MIESTE -->
     <section class="section">
@@ -72,7 +58,7 @@
             <li><span class="features__icon"><i data-icon="trending" data-size="20"></i></span><div><strong>Oceňte</strong><p>Online odhad trhovej ceny zadarmo do 2 minút.</p></div></li>
             <li><span class="features__icon"><i data-icon="key" data-size="20"></i></span><div><strong>Predajte</strong><p>S overeným maklérom za najvýhodnejšiu cenu na trhu.</p></div></li>
           </ul>
-          <a href="#start" class="btn btn--primary btn--auto">Oceniť nehnuteľnosť <i data-icon="arrowRight" data-size="18"></i></a>
+          <a href="#ocenenie" data-open-wizard class="btn btn--primary btn--auto">Oceniť nehnuteľnosť <i data-icon="arrowRight" data-size="18"></i></a>
         </div>
       </div>
     </section>
@@ -96,7 +82,7 @@
           <span class="pill">Dáta z katastra</span>
           <h2 class="left">Až o 9 % vyššia cena</h2>
           <p class="muted">S Realitnou mapkou predáte v priemere o 9 % drahšie ako zvyšok trhu. Vyplýva to z dát z katastra o 14 927 predajoch.</p>
-          <a href="#start" class="btn btn--primary btn--auto">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+          <a href="#ocenenie" data-open-wizard class="btn btn--primary btn--auto">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
         </div>
         <div class="compare card">
           <div class="compare__row">
@@ -361,7 +347,7 @@
         <div class="cta">
           <h2>Koľko môžete za svoju nehnuteľnosť získať?</h2>
           <p>Odhad ceny máte do 2 minút. Zadarmo a nezáväzne.</p>
-          <a href="#start" class="btn btn--white">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+          <a href="#ocenenie" data-open-wizard class="btn btn--white">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
         </div>
       </div>
     </section>
@@ -369,12 +355,29 @@
 
   <!-- Mobilná lepkavá CTA lišta -->
   <div class="sticky-cta" id="stickyCta">
-    <a href="#start" class="btn btn--primary">Oceniť nehnuteľnosť zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+    <a href="#ocenenie" data-open-wizard class="btn btn--primary">Oceniť nehnuteľnosť zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
   </div>
 
   <footer class="footer">
     <div class="container footer__inner"><img src="assets/logo/logo-znacka.svg" alt="" width="20" height="20" /> © <span id="year"></span> Realitná mapka <span class="footer__sep"></span> <a href="#">Ochrana osobných údajov</a></div>
   </footer>
+
+  <!-- MODAL: OCENENIE -->
+  <div class="modal" id="wizModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="wizType">
+      <div class="wizard" id="wizard">
+        <div class="wizard__top">
+          <button type="button" class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
+          <span class="wizard__type" id="wizType"></span>
+          <button type="button" class="modal__close" data-close aria-label="Zavrieť"><i data-icon="close" data-size="20"></i></button>
+        </div>
+        <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+        <form id="stepForm" novalidate></form>
+        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
+      </div>
+    </div>
+  </div>
 
   <script src="icons.js"></script>
   <script src="config.js"></script>

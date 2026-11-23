@@ -35,35 +35,91 @@
     typesEl.appendChild(b);
   });
 
+  // ---------- Modal ----------
+  const modal = $("#wizModal");
+  const dialog = modal.querySelector(".modal__dialog");
+  let lastFocus = null;
+  function openModal() {
+    if (modal.classList.contains("open")) return;
+    lastFocus = document.activeElement;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    updateSticky();
+  }
+  function closeModal() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    if (state.done) resetState();
+    lastFocus?.focus?.();
+    updateSticky();
+  }
+  modal.querySelectorAll("[data-close]").forEach((x) => x.addEventListener("click", closeModal));
+  addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open") && !document.querySelector(".cselect.open")) closeModal();
+  });
+  function resetState() {
+    Object.assign(state, { type: null, steps: [], index: 0, answers: {}, done: false });
+  }
+
+  // Výber kategórie (prvý krok v modale)
+  function renderPicker() {
+    state.type = null;
+    $("#wizType").innerHTML = "Ocenenie nehnuteľnosti";
+    $("#progressBar").style.width = "6%";
+    $("#backBtn").classList.add("invisible");
+    const form = $("#stepForm");
+    form.innerHTML = "";
+    const wrap = el("div", { class: "step" }, `<h2>Akú nehnuteľnosť chcete oceniť?</h2><p class="sub">Vyberte typ a za 2 minúty máte odhad ceny.</p>`);
+    const list = el("div", { class: "picker" });
+    Object.entries(WIZ).forEach(([key, w]) => {
+      const b = el("button", { type: "button", class: "picker__item" },
+        `<span class="picker__icon">${ICON(w.icon, 26)}</span><span class="picker__label">${w.label}</span><span class="picker__arrow">${ICON("arrowRight", 18)}</span>`);
+      b.onclick = () => startWizard(key);
+      list.appendChild(b);
+    });
+    wrap.appendChild(list);
+    form.appendChild(wrap);
+    dialog.scrollTop = 0;
+  }
+
+  // Otvorenie z CTA: pokračuje v rozpracovanom wizarde, inak začne výberom kategórie
+  function openWizard() {
+    openModal();
+    if (!state.type || state.done) { resetState(); renderPicker(); }
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-open-wizard]");
+    if (!t) return;
+    e.preventDefault();
+    openWizard();
+  });
+
   function startWizard(type) {
     state.type = type;
     state.steps = [...WIZ[type].steps, CONTACT_STEP];
     state.index = 0;
     state.answers = {};
+    state.done = false;
     $("#wizType").innerHTML = `${ICON(WIZ[type].icon, 18)} Ocenenie: ${WIZ[type].label}`;
-    $("#wizard").classList.remove("hidden");
+    openModal();
     render();
-    $("#wizard").scrollIntoView({ behavior: "smooth", block: "start" });
     track("wizard_start", { type });
   }
 
   $("#backBtn").onclick = () => {
-    if (state.index === 0) {
-      $("#wizard").classList.add("hidden");
-      $("#start").scrollIntoView({ behavior: "smooth" });
-    } else {
-      state.index--;
-      render();
-    }
+    if (state.index === 0) renderPicker();
+    else { state.index--; render(); }
   };
 
-  // ---------- Render ----------
   function render() {
     const form = $("#stepForm");
     form.innerHTML = "";
     const step = state.steps[state.index];
     $("#progressBar").style.width = `${((state.index + 1) / (state.steps.length + 1)) * 100}%`;
-    $("#backBtn").classList.remove("hidden");
+    $("#backBtn").classList.remove("hidden", "invisible");
+    dialog.scrollTop = 0;
 
     const wrap = el("div", { class: "step" });
     if (step === CONTACT_STEP) renderContact(wrap);
@@ -436,8 +492,10 @@
     WIZ[state.type].steps.flatMap((s) => s.fields).find((f) => f.name === "zamer")?.options || [];
 
   function renderResult(est, lead) {
+    state.done = true;
     $("#progressBar").style.width = "100%";
-    $("#backBtn").classList.add("hidden");
+    $("#backBtn").classList.add("invisible");
+    dialog.scrollTop = 0;
     const sell = lead.answers.zamer?.startsWith("predaj");
     const meno = (lead.contact.meno || "").split(" ")[0];
     $("#stepForm").innerHTML = `
@@ -486,10 +544,10 @@
   );
 
   // Mobilná CTA lišta: zobraziť po odscrollovaní z hero, skryť počas wizardu
-  const sticky = $("#stickyCta");
-  const updateSticky = () => {
+  function updateSticky() {
+    const sticky = $("#stickyCta");
     const heroBottom = $("#start").getBoundingClientRect().bottom;
-    const wizardOpen = !$("#wizard").classList.contains("hidden");
+    const wizardOpen = $("#wizModal").classList.contains("open");
     sticky.classList.toggle("show", heroBottom < 0 && !wizardOpen);
   };
   addEventListener("scroll", updateSticky, { passive: true });
