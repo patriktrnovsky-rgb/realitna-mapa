@@ -112,13 +112,15 @@
       } else if (f.type === "select") {
         field.appendChild(el("label", { for: f.name }, f.label));
         const s = el("select", { id: f.name, name: f.name });
-        s.appendChild(el("option", { value: "" }, "Vyberte…"));
+        const ph = el("option", { value: "", disabled: "", selected: "" }, "Vyberte…");
+        s.appendChild(ph);
         f.options.forEach((o) => {
           const opt = el("option", { value: o.value }, o.label);
           if (val === o.value) opt.selected = true;
           s.appendChild(opt);
         });
-        s.onchange = () => { state.answers[f.name] = s.value; field.classList.remove("invalid"); };
+        s.classList.toggle("empty", !s.value);
+        s.onchange = () => { state.answers[f.name] = s.value; s.classList.toggle("empty", !s.value); field.classList.remove("invalid"); };
         field.appendChild(s);
         hasNextButton = true;
       } else if (f.type === "toggle") {
@@ -320,6 +322,10 @@
     sticky.classList.toggle("show", heroBottom < 0 && !wizardOpen);
   };
   addEventListener("scroll", updateSticky, { passive: true });
+
+  // Priamy odkaz na wizard, napr. ?typ=byt (pre reklamy)
+  const typParam = params.get("typ");
+  if (typParam && WIZ[typParam]) startWizard(typParam);
 
   hydrateIcons();
   $("#year").textContent = new Date().getFullYear();
