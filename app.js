@@ -319,19 +319,33 @@
     $("#progressBar").style.width = "100%";
     $("#backBtn").classList.add("hidden");
     const sell = lead.answers.zamer?.startsWith("predaj");
+    const meno = (lead.contact.meno || "").split(" ")[0];
     $("#stepForm").innerHTML = `
       <div class="step result">
         <div class="result__ok">${ICON("check", 28)}</div>
         <div class="result__label">Odhadovaná trhová cena</div>
         <div class="result__price">${fmt(est.mid)}</div>
-        <div class="result__range">Rozpätie ${fmt(est.low)} – ${fmt(est.high)}, cca ${fmt(est.ppm)}/m²</div>
-        <div class="result__box">
-          <h3>${sell ? ICON("phone", 18) + " Do 24 hodín vám odporučíme makléra" : ICON("mail", 18) + " Odhad sme poslali na váš e-mail"}</h3>
-          <p>${sell
-            ? "Vyberieme overeného makléra z vašej lokality, ktorý vám zdarma určí presnú cenu po obhliadke a pomôže predať za najvýhodnejšiu cenu na trhu. Rozhodnutie je len na vás."
-            : `Na <strong>${lead.contact.email}</strong> sme poslali odhad. Keď sa rozhodnete predávať, odporučíme vám overeného makléra, ktorý predá rýchlo a za najlepšiu cenu.`}</p>
+        <span class="result__ppm">cca ${fmt(est.ppm)} / m²</span>
+
+        <div class="range">
+          <div class="range__bar"><span class="range__marker"></span></div>
+          <div class="range__labels">
+            <div><small>Spodná hranica</small><strong>${fmt(est.low)}</strong></div>
+            <div class="range__mid"><small>Najpravdepodobnejšia</small><strong>${fmt(est.mid)}</strong></div>
+            <div class="range__high"><small>Horná hranica</small><strong>${fmt(est.high)}</strong></div>
+          </div>
         </div>
-        <p class="sub" style="font-size:.85rem">Online odhad je orientačný a vychádza z priemerných cien v regióne.</p>
+
+        <div class="result__box">
+          <div class="result__box-icon">${ICON(sell ? "userCheck" : "mail", 22)}</div>
+          <div>
+            <h3>${sell ? `${meno ? meno + ", o" : "O"}zve sa vám náš realitný špecialista` : "Odhad sme poslali na váš e-mail"}</h3>
+            <p>${sell
+              ? "Online odhad je dobrý začiatok. Presnú cenu však najlepšie určí skúsený špecialista z vášho okolia, ktorý nehnuteľnosť uvidí naživo. Do 24 hodín sa vám ozve, zdarma s vami prejde presnú cenu a poradí, ako postupovať pri predaji. Bez záväzkov, rozhodnutie je vždy na vás."
+              : `Na <strong>${lead.contact.email}</strong> sme poslali odhad. Keď budete chcieť poznať presnú cenu, náš špecialista vám ju zdarma pomôže určiť.`}</p>
+          </div>
+        </div>
+        <p class="result__note">Online odhad je orientačný a vychádza z priemerných cien v regióne.</p>
       </div>`;
   }
 

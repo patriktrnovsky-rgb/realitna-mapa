@@ -132,10 +132,9 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 .result { text-align: center; padding: 12px 0; }
 .result__label { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: .8rem; letter-spacing: .08em; }
 .result__price { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; margin: 8px 0; }
-.result__range { color: var(--muted); }
-.result__box { background: var(--bg); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: left; }
-.result__box h3 { margin: 0 0 6px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
-.result__box h3 .ic { color: var(--accent); }
+.result__box { display: flex; gap: 14px; align-items: flex-start; background: var(--bg); border-radius: 16px; padding: 20px; margin: 28px 0 16px; text-align: left; }
+.result__box-icon { width: 44px; height: 44px; border-radius: 12px; background: #fff; color: var(--accent); display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 6px 16px -8px rgba(15, 23, 42, .25); }
+.result__box h3 { margin: 2px 0 6px; font-size: 1.08rem; }
 .result__box p { margin: 0; color: var(--muted); }
 .result__ok { width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: var(--ok); display: grid; place-items: center; margin: 0 auto 16px; }
 
@@ -450,3 +449,20 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 /* Skryť šípky v číselných poliach */
 input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+/* Výsledok – rozpätie */
+.result__ppm { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: .85rem; padding: 4px 12px; border-radius: 99px; }
+.range { margin: 28px 0 0; }
+.range__bar { position: relative; height: 10px; border-radius: 99px; background: linear-gradient(90deg, #dbe6fd, var(--accent) 50%, #dcd3fb); }
+.range__marker { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 5px solid var(--accent); transform: translate(-50%, -50%); box-shadow: 0 4px 12px -2px rgba(37, 99, 235, .5); }
+.range__labels { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 14px; text-align: left; gap: 8px; }
+.range__labels small { display: block; color: var(--muted); font-size: .75rem; }
+.range__labels strong { font-size: .98rem; }
+.range__mid { text-align: center; }
+.range__mid strong { color: var(--accent); }
+.range__high { text-align: right; }
+.result__note { color: var(--muted); font-size: .8rem; margin: 0; }
+@media (max-width: 680px) {
+  .range__labels strong { font-size: .88rem; }
+  .range__labels small { font-size: .7rem; }
+}
