@@ -679,3 +679,4 @@ body.modal-open { overflow: hidden; }
   .newsletter h3 { font-size: 1.4rem; }
   .newsletter__text p { font-size: .95rem; }
 }
+img { max-width: 100%; height: auto; }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://realitna-mapa.vercel.app/sitemap.xml

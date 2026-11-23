@@ -553,6 +553,7 @@
   // Priamy odkaz na wizard, napr. ?typ=byt (pre reklamy)
   const typParam = params.get("typ");
   if (typParam && WIZ[typParam]) startWizard(typParam);
+  else if (params.has("ocenit")) openWizard();
 
   // Odber noviniek
   $("#newsletterForm")?.addEventListener("submit", async (e) => {
