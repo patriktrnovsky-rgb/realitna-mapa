@@ -561,12 +561,10 @@
     const email = $("#nlEmail").value.trim();
     const msg = $("#nlMsg");
     const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-    const okGdpr = $("#nlGdpr").checked;
     $("#nlEmail").classList.toggle("invalid", !okEmail);
-    $(".consent--sm").classList.toggle("invalid", !okGdpr);
-    if (!okEmail || !okGdpr) {
+    if (!okEmail) {
       msg.className = "newsletter__msg err-msg";
-      msg.textContent = !okEmail ? "Zadajte platný e-mail." : "Potvrďte súhlas so zasielaním noviniek.";
+      msg.textContent = "Zadajte platný e-mail.";
       return;
     }
     const sub = { type: "newsletter", email, createdAt: new Date().toISOString(), source, page: location.href };
