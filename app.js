@@ -168,12 +168,16 @@
     wrap.innerHTML = `
       <h2>Odhad je pripravený</h2>
       <p class="sub">Kam vám ho máme poslať? K odhadu vám zdarma odporučíme aj overeného makléra z vašej lokality.</p>
-      <div class="teaser"><span>Odhadovaná cena:</span><span class="teaser__blur">${fmt(187500) /* fiktívne číslo – skutočný odhad nie je v DOM pred odoslaním */}</span></div>
       <div class="step__body">
         <div class="field" data-name="meno"><label for="meno">Meno a priezvisko</label><input id="meno" type="text" autocomplete="name" /><div class="err">Zadajte meno</div></div>
         <div class="field" data-name="email"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" /><div class="err">Zadajte platný e-mail</div></div>
         <div class="field" data-name="telefon"><label for="telefon">Telefón</label><input id="telefon" type="tel" autocomplete="tel" placeholder="+421 9xx xxx xxx" /><div class="err">Zadajte platné telefónne číslo</div></div>
         <label class="consent" data-name="gdpr"><input type="checkbox" id="gdpr" /> <span>Súhlasím so <a href="#" target="_blank">spracovaním osobných údajov</a> za účelom zaslania odhadu a odporučenia realitného makléra.</span></label>
+      </div>
+      <div class="teaser">
+        <div class="teaser__label">Vaša odhadovaná cena</div>
+        <div class="teaser__blur" aria-hidden="true">${fmt(187500) /* fiktívne číslo – skutočný odhad nie je v DOM pred odoslaním */}</div>
+        <div class="teaser__lock">${ICON("lock", 14)} Zobrazí sa hneď po odoslaní</div>
       </div>
       <button type="submit" class="btn btn--primary" id="submitBtn">Zobraziť odhad ceny</button>`;
     ["meno", "email", "telefon"].forEach((k) => {
