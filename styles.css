@@ -741,3 +741,4 @@ img { max-width: 100%; height: auto; }
   .brokers { grid-template-columns: 1fr; gap: 32px; }
   .brokers__intro { position: static; }
 }
+.faq__a strong { color: var(--text); font-weight: 600; }
