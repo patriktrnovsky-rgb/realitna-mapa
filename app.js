@@ -312,6 +312,15 @@
     })
   );
 
+  // Mobilná CTA lišta: zobraziť po odscrollovaní z hero, skryť počas wizardu
+  const sticky = $("#stickyCta");
+  const updateSticky = () => {
+    const heroBottom = $("#start").getBoundingClientRect().bottom;
+    const wizardOpen = !$("#wizard").classList.contains("hidden");
+    sticky.classList.toggle("show", heroBottom < 0 && !wizardOpen);
+  };
+  addEventListener("scroll", updateSticky, { passive: true });
+
   hydrateIcons();
   $("#year").textContent = new Date().getFullYear();
 })();
