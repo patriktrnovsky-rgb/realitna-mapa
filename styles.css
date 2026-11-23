@@ -697,3 +697,19 @@ img { max-width: 100%; height: auto; }
 .cta--news .newsletter__msg.err-msg { color: #fecaca; font-weight: 500; }
 .cta--news .newsletter__done { justify-content: center; background: rgba(255, 255, 255, .15); color: #fff; }
 @media (max-width: 680px) { .cta__row { flex-direction: column; } .cta__row .btn { width: 100%; } }
+
+/* Odber: e-mail a tlačidlo ako jeden prvok */
+.cta__row { background: #fff; border-radius: 16px; padding: 6px; gap: 6px; box-shadow: 0 16px 36px -14px rgba(15, 23, 42, .45); transition: box-shadow .15s; }
+.cta__row:focus-within { box-shadow: 0 0 0 4px rgba(255, 255, 255, .35), 0 16px 36px -14px rgba(15, 23, 42, .45); }
+.cta__field { flex: 1; display: flex; align-items: center; gap: 10px; padding-left: 12px; color: var(--muted); min-width: 0; }
+.cta__field .ic { display: block; flex-shrink: 0; }
+.cta__row input, .cta__row input:focus { border: 0; box-shadow: none; padding: 12px 4px; background: transparent; }
+.cta__row input.invalid { border: 0; }
+.cta__row:has(input.invalid) { box-shadow: 0 0 0 3px #fecaca, 0 16px 36px -14px rgba(15, 23, 42, .45); }
+.cta__btn { background: #0f172a; color: #fff; padding: 14px 22px; border-radius: 12px; }
+.cta__btn:hover { background: #1e293b; transform: translateY(-1px); }
+@media (max-width: 680px) {
+  .cta__row { flex-direction: column; padding: 6px; }
+  .cta__field { padding: 2px 8px; }
+}
+.cta--news > p { max-width: 600px; margin-left: auto; margin-right: auto; }
