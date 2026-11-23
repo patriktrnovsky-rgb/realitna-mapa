@@ -714,3 +714,10 @@ img { max-width: 100%; height: auto; }
 }
 .cta--news > p { max-width: 600px; margin-left: auto; margin-right: auto; }
 .cta--news > p { max-width: 720px; }
+
+/* Ako to funguje – rovnaké karty, zvýraznené kľúčové slová */
+.steps3 { align-items: stretch; }
+.step3 { display: flex; flex-direction: column; }
+.step3 p { line-height: 1.6; }
+.step3 p strong { color: var(--text); font-weight: 600; }
+@media (max-width: 680px) { .step3 { display: grid; } }
