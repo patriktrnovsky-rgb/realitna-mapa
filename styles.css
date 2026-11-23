@@ -761,3 +761,4 @@ img { max-width: 100%; height: auto; }
 }
 .result__back { margin-top: 18px; }
 .result__back .ic { display: inline-block; }
+.brokers { align-items: end; } .brokers__intro { position: static; }
