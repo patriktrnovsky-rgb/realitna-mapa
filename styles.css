@@ -763,3 +763,6 @@ img { max-width: 100%; height: auto; }
 .result__back .ic { display: inline-block; }
 .brokers { align-items: end; } .brokers__intro { position: static; }
 .section h2, .platform h2, .brokers h2 { line-height: 1.2; }
+.section-cta { display: flex; justify-content: center; margin-top: 40px; }
+.section-cta .btn { padding: 16px 32px; font-size: 1.05rem; }
+@media (max-width: 680px) { .section-cta { margin-top: 28px; } .section-cta .btn { width: 100%; } }
