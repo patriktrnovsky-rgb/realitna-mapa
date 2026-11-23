@@ -329,40 +329,23 @@
   </div>
 </a>
         </div>
-
-        <!-- ODBER NOVINIEK -->
-        <div class="newsletter" id="newsletter">
-          <div class="newsletter__text">
-            <span class="newsletter__eyebrow"><i data-icon="mail" data-size="16"></i> Odber noviniek</span>
-            <h3>Vývoj cien nehnuteľností priamo do e-mailu</h3>
-            <p>Každý mesiac pre vás pripravíme prehľadnú analýzu realitného trhu na Slovensku: ako sa vyvíjajú ceny bytov, domov a pozemkov vo vašom regióne, čo ich práve ovplyvňuje a kedy je vhodný čas na predaj. K tomu overené rady od realitných maklérov, s ktorými sa pri predaji nestratíte.</p>
-            <ul class="newsletter__perks">
-              <li><i data-icon="check" data-size="16"></i> Mesačná analýza cien</li>
-              <li><i data-icon="check" data-size="16"></i> Vývoj trhu vo vašom regióne</li>
-              <li><i data-icon="check" data-size="16"></i> Rady od realitných expertov</li>
-            </ul>
-          </div>
-          <form class="newsletter__form" id="newsletterForm" novalidate>
-            <label class="newsletter__label" for="nlEmail">Kam vám máme novinky posielať?</label>
-            <div class="newsletter__row">
-              <input type="email" id="nlEmail" placeholder="vas@email.sk" autocomplete="email" />
-              <button type="submit" class="btn btn--primary">Chcem novinky <i data-icon="arrowRight" data-size="18"></i></button>
-            </div>
-            <label class="consent consent--sm"><input type="checkbox" id="nlGdpr" /> <span>Súhlasím so zasielaním noviniek a <a href="#">spracovaním osobných údajov</a>.</span></label>
-            <p class="newsletter__fine">Žiadny spam. Odhlásiť sa môžete jedným kliknutím.</p>
-            <p class="newsletter__msg" id="nlMsg" role="status"></p>
-          </form>
-        </div>
       </div>
     </section>
 
-    <!-- ZÁVEREČNÉ CTA -->
+    <!-- ODBER NOVINIEK -->
     <section class="section">
       <div class="container">
-        <div class="cta">
-          <h2>Koľko môžete za svoju nehnuteľnosť získať?</h2>
-          <p>Odhad ceny máte do 2 minút. Zadarmo a nezáväzne.</p>
-          <a href="#ocenenie" data-open-wizard class="btn btn--white">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+        <div class="cta cta--news" id="newsletter">
+          <h2>Prihláste sa na odber noviniek</h2>
+          <p>Raz mesačne vývoj cien nehnuteľností a tipy, ako predať výhodnejšie.</p>
+          <form class="cta__form" id="newsletterForm" novalidate>
+            <div class="cta__row">
+              <input type="email" id="nlEmail" placeholder="Váš e-mail" autocomplete="email" aria-label="Váš e-mail" />
+              <button type="submit" class="btn btn--white">Odoberať <i data-icon="arrowRight" data-size="18"></i></button>
+            </div>
+            <label class="consent consent--sm"><input type="checkbox" id="nlGdpr" /> <span>Súhlasím so zasielaním noviniek a <a href="#">spracovaním osobných údajov</a>.</span></label>
+            <p class="newsletter__msg" id="nlMsg" role="status"></p>
+          </form>
         </div>
       </div>
     </section>

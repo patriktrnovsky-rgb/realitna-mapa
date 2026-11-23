@@ -680,3 +680,20 @@ body.modal-open { overflow: hidden; }
   .newsletter__text p { font-size: .95rem; }
 }
 img { max-width: 100%; height: auto; }
+
+/* Odber noviniek v záverečnom boxe */
+.cta__form { max-width: 520px; margin: 0 auto; }
+.cta__row { display: flex; gap: 10px; }
+.cta__row input { flex: 1; min-width: 0; padding: 14px 16px; border: 2px solid transparent; border-radius: 12px; font: inherit; background: #fff; }
+.cta__row input:focus { outline: none; border-color: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, .3); }
+.cta__row input.invalid { border-color: #fecaca; }
+.cta__row .btn { width: auto; white-space: nowrap; }
+.cta__row .btn .ic { display: inline-block; }
+.cta--news .consent { justify-content: center; color: rgba(255, 255, 255, .85); text-align: left; margin-top: 12px; }
+.cta--news .consent a { color: #fff; text-decoration: underline; }
+.cta--news .consent input { accent-color: #fff; }
+.cta--news .consent.invalid { color: #fecaca; }
+.cta--news .newsletter__msg { margin: 8px 0 0; }
+.cta--news .newsletter__msg.err-msg { color: #fecaca; font-weight: 500; }
+.cta--news .newsletter__done { justify-content: center; background: rgba(255, 255, 255, .15); color: #fff; }
+@media (max-width: 680px) { .cta__row { flex-direction: column; } .cta__row .btn { width: 100%; } }
