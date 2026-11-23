@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predajte nehnuteľnosť za najvýhodnejšiu cenu | Odhad ceny zadarmo</title>
+  <meta name="description" content="Zistite trhovú cenu bytu, domu alebo pozemku za 2 minúty a predajte s overeným maklérom za najvýhodnejšiu cenu. Zadarmo a nezáväzne." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="logo"><span class="logo__dot"></span>Realitná mapa</a>
+      <a href="#start" class="btn btn--ghost">Oceniť nehnuteľnosť</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO + VÝBER TYPU -->
+    <section class="hero" id="start">
+      <div class="container">
+        <span class="pill pill--hero"><i data-icon="clock" data-size="16"></i> Odhad zadarmo do 2 minút</span>
+        <h1>Predajte nehnuteľnosť<br /><span class="accent">za najvýhodnejšiu cenu</span></h1>
+        <p class="lead">Zistite trhovú cenu zadarmo a my vám odporučíme overeného makléra z vašej lokality, ktorý predá rýchlo a výhodne.</p>
+
+        <p class="types__q">Akú nehnuteľnosť chcete oceniť?</p>
+        <div class="types" id="types"></div>
+      </div>
+    </section>
+
+    <!-- WIZARD -->
+    <section class="wizard-wrap hidden" id="wizard">
+      <div class="container container--narrow">
+        <div class="card wizard">
+          <div class="wizard__top">
+            <button class="link-btn" id="backBtn"><i data-icon="arrowLeft" data-size="18"></i> Späť</button>
+            <span class="wizard__type" id="wizType"></span>
+          </div>
+          <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+          <form id="stepForm" novalidate></form>
+        </div>
+        <p class="secure"><i data-icon="lock" data-size="16"></i> Vaše údaje sú v bezpečí a nikomu ich nepredávame.</p>
+      </div>
+    </section>
+
+    <!-- VŠETKO NA JEDNOM MIESTE -->
+    <section class="section">
+      <div class="container platform">
+        <div class="platform__media">
+          <img src="assets/dom-hero.jpg" alt="Moderný rodinný dom so záhradou" loading="lazy" />
+          <div class="float-card float-card--top">
+            <span class="float-card__icon"><i data-icon="trending" data-size="18"></i></span>
+            <span><small>Odhad ceny</small><strong>342 000 €</strong></span>
+          </div>
+          <div class="float-card float-card--bottom">
+            <span class="float-card__icon float-card__icon--ok"><i data-icon="check" data-size="18"></i></span>
+            <span><small>Stav</small><strong>Predané za 34 dní</strong></span>
+          </div>
+        </div>
+        <div class="platform__text">
+          <h2 class="left">Ocenenie nehnuteľnosti na pár kliknutí</h2>
+          <p class="muted lead-left">Vyhľadáte, oceníte aj predáte nehnuteľnosť na jednom mieste. Rýchlo, transparentne a bez starostí.</p>
+          <ul class="features">
+            <li><span class="features__icon"><i data-icon="search" data-size="20"></i></span><div><strong>Vyhľadajte</strong><p>Prehľad ponúk a cien vo vašom okolí na mape.</p></div></li>
+            <li><span class="features__icon"><i data-icon="trending" data-size="20"></i></span><div><strong>Oceňte</strong><p>Online odhad trhovej ceny zadarmo do 2 minút.</p></div></li>
+            <li><span class="features__icon"><i data-icon="key" data-size="20"></i></span><div><strong>Predajte</strong><p>S overeným maklérom za najvýhodnejšiu cenu na trhu.</p></div></li>
+          </ul>
+          <a href="#start" class="btn btn--primary btn--auto">Oceniť nehnuteľnosť <i data-icon="arrowRight" data-size="18"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AKO TO FUNGUJE -->
+    <section class="section section--alt" id="how">
+      <div class="container">
+        <h2>Ako Realitnámapka funguje</h2>
+        <div class="steps3">
+          <div class="step3"><span>1</span><h3>Zistite cenu</h3><p>Odpovedzte na pár otázok a hneď uvidíte odhad trhovej ceny.</p></div>
+          <div class="step3"><span>2</span><h3>Odporučíme makléra</h3><p>Do 24 hodín vám pošleme overeného makléra z vašej lokality aj s referenciami.</p></div>
+          <div class="step3"><span>3</span><h3>Predajte výhodne</h3><p>Rozhodnete sa sami. Bez záväzkov a bez poplatkov za našu službu.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VYŠŠIA CENA -->
+    <section class="section">
+      <div class="container split">
+        <div>
+          <span class="pill">Dáta z katastra</span>
+          <h2 class="left">Až o 9 % vyššia cena</h2>
+          <p class="muted">S Realitnou mapou predáte v priemere o 9 % drahšie ako zvyšok trhu. Vyplýva to z dát z katastra o 14 927 predajoch.</p>
+          <a href="#start" class="btn btn--primary btn--auto">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+        </div>
+        <div class="compare card">
+          <div class="compare__row">
+            <div class="compare__head"><span>Priemer trhu</span><strong>100 %</strong></div>
+            <div class="compare__track"><div class="compare__bar compare__bar--muted" style="width:91.7%"></div></div>
+          </div>
+          <div class="compare__row">
+            <div class="compare__head"><span>S Realitnou mapou</span><strong class="accent-text">109 %</strong></div>
+            <div class="compare__track"><div class="compare__bar" style="width:100%"></div></div>
+          </div>
+          <div class="compare__note"><i data-icon="trending" data-size="18"></i> Pri byte za 200 000 € je to v priemere o 18 000 € viac.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITY -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2>Prečo predávať cez Realitnú mapku</h2>
+        <p class="section__sub">Predaj nehnuteľnosti robíte raz za čas. My dohliadneme, aby ste ho urobili čo najvýhodnejšie.</p>
+        <div class="benefits">
+          <article class="benefit">
+            <div class="benefit__img"><img src="assets/benefit-cena.jpg" alt="Interiér moderného bytu" loading="lazy" /></div>
+            <div class="benefit__body">
+              <div class="benefit__icon"><i data-icon="trending" data-size="22"></i></div>
+              <h3>Až o 9 % vyššia cena</h3>
+              <p>Skúsený maklér vie nehnuteľnosť oceniť aj vyjednať lepšie ako pri predaji na vlastnú päsť.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <div class="benefit__img"><img src="assets/benefit-rychlo.jpg" alt="Kľúče od domu" loading="lazy" /></div>
+            <div class="benefit__body">
+              <div class="benefit__icon"><i data-icon="zap" data-size="22"></i></div>
+              <h3>Rýchly predaj</h3>
+              <p>Maklér s klientmi v lokalite predá rýchlejšie, bez zbytočných mesiacov čakania.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <div class="benefit__img"><img src="assets/benefit-bezpecne.jpg" alt="Podpis zmluvy" loading="lazy" /></div>
+            <div class="benefit__body">
+              <div class="benefit__icon"><i data-icon="shield" data-size="22"></i></div>
+              <h3>Bezpečne</h3>
+              <p>Kvalitné zmluvy a advokátska či banková úschova peňazí.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <div class="benefit__img"><img src="assets/benefit-bez-starosti.jpg" alt="Útulná obývačka" loading="lazy" /></div>
+            <div class="benefit__body">
+              <div class="benefit__icon"><i data-icon="userCheck" data-size="22"></i></div>
+              <h3>Bez starostí</h3>
+              <p>Fotky, inzercia, obhliadky, právny servis. Všetko vybaví maklér za vás.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KRITÉRIÁ MAKLÉROV -->
+    <section class="section">
+      <div class="container">
+        <h2>Odporučíme overených realitných maklérov a realitné kancelárie</h2>
+        <p class="section__sub">Na trhu pôsobia tisíce maklérov s veľmi rozdielnou kvalitou. Do našej siete sa dostanú len tí, ktorým by sme sami zverili predaj vlastného domova.</p>
+        <ul class="args">
+          <li><span class="args__icon"><i data-icon="userCheck" data-size="22"></i></span><div><h3>Len preverení profesionáli</h3><p>Každého makléra a realitnú kanceláriu preveríme: minimálne 3 roky praxe, desiatky úspešných predajov a čistá história bez sťažností.</p></div></li>
+          <li><span class="args__icon"><i data-icon="trending" data-size="22"></i></span><div><h3>Cena podložená dátami, nie odhadom od oka</h3><p>Cenu stanovíme podľa skutočných predajov z katastra vo vašej lokalite. Nepredáte lacno a nebudete mesiace čakať na kupca.</p></div></li>
+          <li><span class="args__icon"><i data-icon="shield" data-size="22"></i></span><div><h3>Vaše peniaze sú v bezpečí</h3><p>Právne preverené zmluvy a peniaze v advokátskej, notárskej alebo bankovej úschove, kým sa kupec nezapíše do katastra.</p></div></li>
+          <li><span class="args__icon"><i data-icon="camera" data-size="22"></i></span><div><h3>Prezentácia, ktorá predáva</h3><p>Profesionálne fotky, video a 3D obhliadka. Prvý dojem rozhoduje o tom, koľko za nehnuteľnosť dostanete.</p></div></li>
+          <li><span class="args__icon"><i data-icon="thumb" data-size="22"></i></span><div><h3>Rozhodujete vy. Bez poplatkov a záväzkov</h3><p>Odporúčanie je zadarmo a nezáväzné. Ak vám maklér nesadne, odporučíme vám iného.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- REFERENCIE -->
+    <!-- POZOR: ukážkové recenzie! Pred spustením nahradiť skutočnými recenziami z Google (alebo Google Reviews widgetom). -->
+    <section class="section section--alt" id="referencie">
+      <div class="container">
+        <div class="placeholder-note">Ukážkové recenzie a hodnotenie: pred spustením nahraďte skutočnými recenziami z Google</div>
+        <h2>Overené referencie od skutočných klientov</h2>
+        <div class="rating">
+          <span class="g-logo g-logo--lg">G</span>
+          <strong class="rating__score">4,9</strong>
+          <div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <small>186 recenzií na Google</small>
+          </div>
+        </div>
+        <div class="reviews">
+          <article class="review">
+            <div class="review__head">
+              <span class="review__avatar" style="background:#2563eb">M</span>
+              <div><strong>Martina K.</strong><small>pred 2 týždňami</small></div>
+              <span class="g-logo" title="Google">G</span>
+            </div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <p>Byt sme predali za necelý mesiac a o 11 000 € drahšie, ako sme pôvodne čakali. Maklérka bola super, všetko vybavila za nás.</p>
+            <span class="review__tag">Predaj bytu <em>Trnava</em></span>
+          </article>
+          <article class="review">
+            <div class="review__head">
+              <span class="review__avatar" style="background:#16a34a">P</span>
+              <div><strong>Peter H.</strong><small>pred mesiacom</small></div>
+              <span class="g-logo" title="Google">G</span>
+            </div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <p>Najprv som bol skeptický, ale odhad sedel takmer presne. Odporučený maklér mal kupca už po druhej obhliadke.</p>
+            <span class="review__tag">Predaj domu <em>Žilina</em></span>
+          </article>
+          <article class="review">
+            <div class="review__head">
+              <span class="review__avatar" style="background:#7c3aed">J</span>
+              <div><strong>Jana a Tomáš V.</strong><small>pred mesiacom</small></div>
+              <span class="g-logo" title="Google">G</span>
+            </div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <p>Oceňujem hlavne bezpečnosť. Peniaze boli v úschove a nič sme nemuseli riešiť sami. Celé to prebehlo bez stresu.</p>
+            <span class="review__tag">Predaj bytu <em>Bratislava</em></span>
+          </article>
+          <article class="review">
+            <div class="review__head">
+              <span class="review__avatar" style="background:#ea580c">L</span>
+              <div><strong>Lucia M.</strong><small>pred 2 mesiacmi</small></div>
+              <span class="g-logo" title="Google">G</span>
+            </div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <p>Pozemok po rodičoch sme chceli predať rýchlo a férovo. Dostali sme jasnú cenu a do 6 týždňov bolo hotovo.</p>
+            <span class="review__tag">Predaj pozemku <em>Nitra</em></span>
+          </article>
+          <article class="review">
+            <div class="review__head">
+              <span class="review__avatar" style="background:#0891b2">M</span>
+              <div><strong>Marek S.</strong><small>pred 2 mesiacmi</small></div>
+              <span class="g-logo" title="Google">G</span>
+            </div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <p>Profesionálne fotky a video urobili veľký rozdiel. Na inzerát sa ozvalo veľa záujemcov hneď v prvý týždeň.</p>
+            <span class="review__tag">Predaj bytu <em>Košice</em></span>
+          </article>
+          <article class="review">
+            <div class="review__head">
+              <span class="review__avatar" style="background:#db2777">Z</span>
+              <div><strong>Zuzana B.</strong><small>pred 3 mesiacmi</small></div>
+              <span class="g-logo" title="Google">G</span>
+            </div>
+            <div class="stars"><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i><i data-icon="star" data-size="16"></i></div>
+            <p>Rýchla komunikácia, žiadne skryté poplatky. Maklér nám vysvetlil každý krok. Určite odporúčam ďalej.</p>
+            <span class="review__tag">Predaj domu <em>Banská Bystrica</em></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <h2>Časté otázky</h2>
+        <p class="section__sub">Všetko, čo potrebujete vedieť o odhade ceny a predaji s Realitnou mapkou.</p>
+        <div class="faq">
+          <div class="faq__col">
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Je odhad ceny naozaj zadarmo?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Áno. Online odhad aj odporúčanie overeného makléra sú pre vás úplne zadarmo a k ničomu vás nezaväzujú. Makléra platíte až vtedy, keď sa rozhodnete s ním spolupracovať a nehnuteľnosť úspešne predá.</p></div></div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Ako presný je online odhad?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Odhad vychádza z cien porovnateľných nehnuteľností vo vašom regióne a z údajov, ktoré zadáte. Slúži ako spoľahlivá orientácia. Presnú predajnú cenu vám zdarma určí odporučený maklér po obhliadke.</p></div></div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Odkiaľ beriete dáta o cenách?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Pracujeme s cenami skutočne zrealizovaných predajov z katastra a s aktuálnymi ponukami na trhu. Vďaka tomu odhad ukazuje, za koľko sa nehnuteľnosti naozaj predávajú, nie len za koľko sú inzerované.</p></div></div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Ako rýchlo sa mi niekto ozve?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Odhad uvidíte hneď po vyplnení formulára. Ak plánujete predávať, do 24 hodín v pracovné dni vám odporučíme overeného makléra z vašej lokality.</p></div></div>
+            </div>
+          </div>
+          <div class="faq__col">
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Ako vyberáte maklérov a realitné kancelárie?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Odporúčame len maklérov s minimálne 3 rokmi praxe, desiatkami úspešných predajov a overenými referenciami. Sledujeme aj spokojnosť klientov a maklérov, ktorí naše štandardy nedodržia, zo siete vyradíme.</p></div></div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Musím s odporučeným maklérom podpísať zmluvu?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Nie. Rozhodnutie je vždy len na vás. Makléra si môžete najprv vypočuť, porovnať jeho ponuku a ak vám nesadne, odporučíme vám iného alebo sa jednoducho rozhodnete inak.</p></div></div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Koľko stojí služba makléra?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Províziu si dohodnete priamo s maklérom. Na Slovensku sa bežne pohybuje okolo 3 – 5 % z predajnej ceny. Skúsený maklér vám však vďaka lepšej cene a vyjednávaniu často zarobí viac, ako stojí.</p></div></div>
+            </div>
+            <div class="faq__item">
+              <button type="button" class="faq__q" aria-expanded="false"><span>Čo sa stane s mojimi údajmi?</span><span class="faq__pm" aria-hidden="true"></span></button>
+              <div class="faq__a"><div><p>Vaše údaje spracúvame v súlade s GDPR a použijeme ich len na zaslanie odhadu a odporúčanie makléra. Nikomu ich nepredávame a súhlas môžete kedykoľvek odvolať.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ZÁVEREČNÉ CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta">
+          <h2>Koľko môžete za svoju nehnuteľnosť získať?</h2>
+          <p>Odhad ceny máte do 2 minút. Zadarmo a nezáväzne.</p>
+          <a href="#start" class="btn btn--white">Zistiť cenu zadarmo <i data-icon="arrowRight" data-size="18"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Realitná mapa <span class="footer__sep"></span> <a href="#">Ochrana osobných údajov</a></div>
+  </footer>
+
+  <script src="icons.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
