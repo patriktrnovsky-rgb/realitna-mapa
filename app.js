@@ -169,19 +169,37 @@
     if (hasNextButton) wrap.appendChild(el("button", { type: "submit", class: "btn btn--primary" }, `Pokračovať ${ICON("arrowRight", 18)}`));
   }
 
+  // ---------- Telefónne predvoľby ----------
+  const FLAG = {
+    SK: `<svg class="flag" viewBox="0 0 9 6" aria-hidden="true"><rect width="9" height="6" fill="#ee1c25"/><rect width="9" height="4" fill="#0b4ea2"/><rect width="9" height="2" fill="#fff"/><path d="M2 1.3h2.3v1.9c0 .9-.6 1.5-1.15 1.8C2.6 4.7 2 4.1 2 3.2z" fill="#ee1c25" stroke="#fff" stroke-width=".2"/><path d="M3.15 1.7v2.4M2.65 2.3h1M2.5 2.9h1.3" stroke="#fff" stroke-width=".25"/><path d="M2.2 4.1c.3-.3.6-.3.95 0 .35-.3.65-.3.95 0-.2.45-.55.7-.95.9-.4-.2-.75-.45-.95-.9z" fill="#0b4ea2"/></svg>`,
+    CZ: `<svg class="flag" viewBox="0 0 9 6" aria-hidden="true"><rect width="9" height="6" fill="#d7141a"/><rect width="9" height="3" fill="#fff"/><path d="M0 0l4.5 3L0 6z" fill="#11457e"/></svg>`,
+  };
+  const PREDVOLBY = [
+    { value: "+421", label: "Slovensko +421", html: `${FLAG.SK}<span>+421</span>`, country: "SK" },
+    { value: "+420", label: "Česko +420", html: `${FLAG.CZ}<span>+420</span>`, country: "CZ" },
+  ];
+  // vráti 9-miestne národné číslo (bez predvoľby a úvodnej nuly)
+  const nationalDigits = (raw) => {
+    let d = (raw || "").replace(/\D/g, "");
+    // predvoľbu odstrániť len ak bola zadaná (+420/+421/00420…) alebo je číslo dlhšie ako 9 číslic
+    if ((/^\s*(\+|00)/.test(raw || "") || d.length > 10) && /^(00)?42[01]/.test(d)) d = d.replace(/^(00)?42[01]/, "");
+    return d.replace(/^0+/, "");
+  };
+  const formatPhone = (d) => d.slice(0, 9).replace(/(\d{3})(?=\d)/g, "$1 ");
+
   // ---------- Vlastný selectbox v grafike wizarda ----------
   function customSelect(f, val, onPick) {
     const wrap = el("div", { class: "cselect" });
     const current = f.options.find((o) => o.value === val);
     const trigger = el("button", { type: "button", class: `cselect__trigger ${current ? "" : "empty"}`, id: f.name,
       "aria-haspopup": "listbox", "aria-expanded": "false", "aria-labelledby": `${f.name}-label ${f.name}` },
-      `<span class="cselect__value">${current ? current.label : "Vyberte…"}</span><span class="cselect__chev">${ICON("chevron", 18)}</span>`);
+      `<span class="cselect__value">${current ? current.html || current.label : "Vyberte…"}</span><span class="cselect__chev">${ICON("chevron", 18)}</span>`);
     const list = el("ul", { class: "cselect__list", role: "listbox", tabindex: "-1" });
     let active = Math.max(0, f.options.indexOf(current));
 
     f.options.forEach((o, i) => {
       const li = el("li", { role: "option", class: `cselect__opt ${o === current ? "selected" : ""}`, "aria-selected": o === current ? "true" : "false" },
-        `<span>${o.label}</span><span class="cselect__check">${ICON("check", 16)}</span>`);
+        `<span class="cselect__optlabel">${o.html || o.label}</span><span class="cselect__check">${ICON("check", 16)}</span>`);
       li.onmouseenter = () => setActive(i);
       li.onclick = () => pick(i);
       list.appendChild(li);
@@ -207,7 +225,7 @@
     function pick(i) {
       const o = f.options[i];
       items().forEach((li, j) => { li.classList.toggle("selected", j === i); li.setAttribute("aria-selected", j === i); });
-      trigger.querySelector(".cselect__value").textContent = o.label;
+      trigger.querySelector(".cselect__value").innerHTML = o.html || o.label;
       trigger.classList.remove("empty");
       active = i;
       onPick(o.value, o);
@@ -242,7 +260,7 @@
       <div class="step__body">
         <div class="field" data-name="meno"><label for="meno">Meno a priezvisko</label><input id="meno" type="text" autocomplete="name" /><div class="err">Zadajte meno</div></div>
         <div class="field" data-name="email"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" /><div class="err">Zadajte platný e-mail</div></div>
-        <div class="field" data-name="telefon"><label for="telefon">Telefón</label><input id="telefon" type="tel" autocomplete="tel" placeholder="+421 9xx xxx xxx" /><div class="err">Zadajte platné telefónne číslo</div></div>
+        <div class="field" data-name="telefon"><label for="telefon">Telefón</label><div class="phone" id="phoneWrap"><input id="telefon" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="900 123 456" /></div><div class="err">Zadajte platné telefónne číslo (9 číslic)</div></div>
         <label class="consent" data-name="gdpr"><input type="checkbox" id="gdpr" /> <span>Súhlasím so <a href="#" target="_blank">spracovaním osobných údajov</a> za účelom zaslania odhadu a odporučenia realitného makléra.</span></label>
       </div>
       <div class="teaser">
@@ -251,6 +269,29 @@
         <div class="teaser__lock">${ICON("lock", 14)} Zobrazí sa hneď po odoslaní</div>
       </div>
       <button type="submit" class="btn btn--primary" id="submitBtn">Zobraziť odhad ceny</button>`;
+    // predvoľba s vlajkou + formátovanie čísla
+    if (!state.answers.predvolba) state.answers.predvolba = "+421";
+    const phoneWrap = wrap.querySelector("#phoneWrap");
+    const ccSelect = customSelect({ name: "predvolba", options: PREDVOLBY }, state.answers.predvolba, (v) => {
+      state.answers.predvolba = v;
+      phoneWrap.querySelector("input").focus();
+    });
+    ccSelect.classList.add("phone__cc");
+    phoneWrap.prepend(ccSelect);
+    const tel = phoneWrap.querySelector("input");
+    tel.addEventListener("input", () => {
+      const raw = tel.value;
+      // vložené číslo s +420 / +421 prepne krajinu
+      const m = raw.replace(/\s/g, "").match(/^(?:\+|00)(42[01])/);
+      if (m && `+${m[1]}` !== state.answers.predvolba) {
+        state.answers.predvolba = `+${m[1]}`;
+        const o = PREDVOLBY.find((p) => p.value === state.answers.predvolba);
+        ccSelect.querySelector(".cselect__value").innerHTML = o.html;
+        ccSelect.querySelectorAll(".cselect__opt").forEach((li, i) => li.classList.toggle("selected", PREDVOLBY[i] === o));
+      }
+      tel.value = formatPhone(nationalDigits(raw));
+    });
+
     ["meno", "email", "telefon"].forEach((k) => {
       const i = wrap.querySelector(`#${k}`);
       if (state.answers[k]) i.value = state.answers[k];
@@ -295,7 +336,7 @@
     const checks = {
       meno: (a.meno || "").length >= 3,
       email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(a.email || ""),
-      telefon: (a.telefon || "").replace(/[^\d]/g, "").length >= 9,
+      telefon: nationalDigits(a.telefon).length === 9,
     };
     let ok = true;
     Object.entries(checks).forEach(([k, pass]) => {
@@ -361,12 +402,12 @@
     btn.textContent = "Počítam odhad…";
 
     const est = estimate();
-    const { meno, email, telefon, ...answers } = state.answers;
+    const { meno, email, telefon, predvolba, ...answers } = state.answers;
     const zamerOpt = ZAMER_OPTIONS().find((o) => o.value === answers.zamer);
     const lead = {
       createdAt: new Date().toISOString(),
       type: state.type,
-      contact: { meno, email, telefon },
+      contact: { meno, email, telefon: `${state.answers.predvolba} ${formatPhone(nationalDigits(telefon))}` },
       answers,
       estimate: est,
       hot: !!zamerOpt?.hot,

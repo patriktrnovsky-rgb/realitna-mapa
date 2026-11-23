@@ -141,7 +141,7 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 .teaser__label { color: var(--muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
 .teaser__lock { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 600; font-size: .85rem; }
 .teaser__lock .ic { display: inline-block; }
-.teaser__blur { filter: blur(9px); font-weight: 800; font-size: clamp(2rem, 7vw, 2.6rem); letter-spacing: -0.03em; margin: 6px 0 8px; user-select: none; color: var(--text); }
+.teaser__blur { filter: blur(6px); font-weight: 800; font-size: clamp(2.5rem, 10vw, 3.3rem); letter-spacing: -0.03em; line-height: 1.15; margin: 8px 0 10px; user-select: none; color: var(--text); }
 
 /* RESULT */
 .result { text-align: center; padding: 12px 0; }
@@ -500,3 +500,14 @@ input[type=number] { -moz-appearance: textfield; appearance: textfield; }
   .field--half > label { line-height: 1.35; height: 2.7em; display: flex; align-items: flex-end; }
 }
 .choices--list { grid-template-columns: 1fr; }
+
+/* Telefón s predvoľbou */
+.phone { display: flex; gap: 8px; }
+.phone__cc { flex: 0 0 auto; }
+.phone__cc .cselect__trigger { padding: 14px 12px; gap: 8px; }
+.phone__cc .cselect__value, .phone__cc .cselect__optlabel { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.phone__cc .cselect__list { right: auto; min-width: 220px; }
+.phone input { flex: 1; min-width: 0; }
+.flag { width: 24px; height: 16px; border-radius: 3px; box-shadow: 0 0 0 1px rgba(15, 23, 42, .12); flex-shrink: 0; display: block; }
+.field.invalid .phone input { border-color: var(--err); }
+.cselect__optlabel { display: inline-flex; align-items: center; gap: 8px; }
