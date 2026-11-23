@@ -112,7 +112,11 @@ window.WIZARDS = {
           {
             name: "doplnky", type: "multi",
             options: [
-              { value: "balkon", label: "Balkón / lodžia", multiplier: 1.03 },
+              {
+                value: "balkon", label: "Balkón / lodžia", multiplier: 1.03,
+                // po označení sa rozbalí pole na výmeru; započíta sa 25 % plochy
+                detail: { name: "balkonM2", label: "Výmera balkóna / lodžie (m²)", placeholder: "napr. 6", min: 1, max: 100, required: true, areaWeight: 0.25 },
+              },
               { value: "terasa", label: "Terasa", multiplier: 1.05 },
               { value: "pivnica", label: "Pivnica", multiplier: 1.01 },
               { value: "parking", label: "Parkovacie miesto / garáž", multiplier: 1.05 },
@@ -122,6 +126,7 @@ window.WIZARDS = {
             name: "vlastnictvo", type: "select", label: "Vlastníctvo", required: true,
             options: [
               { value: "osobne", label: "Osobné vlastníctvo" },
+              { value: "spoluvlastnictvo", label: "Spoluvlastníctvo" },
               { value: "druzstevne", label: "Družstevné", multiplier: 0.95 },
             ],
           },

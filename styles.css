@@ -432,3 +432,18 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 .field select:invalid, .field select.empty { color: var(--muted); font-weight: 400; }
 .field select option { color: var(--text); font-weight: 400; }
 .nav .btn--ghost { gap: .3em; }
+
+/* Doplňujúce pole pod možnosťou (napr. výmera balkóna) */
+.choice-detail { grid-column: 1 / -1; display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .3s ease, opacity .25s ease, margin .3s ease; margin-top: -12px; }
+.choice-detail > div { overflow: hidden; padding: 0 2px; }
+.choice-detail.open { grid-template-rows: 1fr; opacity: 1; margin-top: 0; }
+.choice-detail.open > div { padding: 4px 2px 6px; }
+.input-unit { position: relative; }
+.input-unit input { padding-right: 52px !important; }
+.input-unit span { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 500; pointer-events: none; }
+.field .input-unit input { width: 100%; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 12px; font: inherit; background: #fff; }
+.field .input-unit input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.field.invalid .input-unit input { border-color: var(--err); }
+/* Skryť šípky v číselných poliach */
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; appearance: textfield; }

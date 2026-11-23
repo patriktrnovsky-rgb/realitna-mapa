@@ -91,12 +91,30 @@
           const selected = f.type === "multi" ? (val || []).includes(o.value) : val === o.value;
           const c = el("button", { type: "button", class: `choice ${selected ? "selected" : ""}` },
             `${o.icon ? `<span class="choice__icon">${ICON(o.icon, 20)}</span>` : ""}<span>${o.label}</span><span class="choice__check">${ICON("check", 14)}</span>`);
+          // Doplňujúce pole (napr. výmera balkóna) – rozbalí sa pod možnosťou
+          let detailEl = null;
+          if (o.detail) {
+            const d = o.detail;
+            detailEl = el("div", { class: `field choice-detail ${selected ? "open" : ""}`, "data-name": d.name },
+              `<div><label for="${d.name}">${d.label}</label>
+               <div class="input-unit"><input id="${d.name}" type="number" inputmode="decimal" min="${d.min ?? ""}" max="${d.max ?? ""}" placeholder="${d.placeholder || ""}" /><span>m²</span></div>
+               <div class="err">Zadajte výmeru</div></div>`);
+            const inp = detailEl.querySelector("input");
+            if (state.answers[d.name] != null) inp.value = state.answers[d.name];
+            inp.oninput = () => { state.answers[d.name] = inp.value === "" ? null : Number(inp.value); detailEl.classList.remove("invalid"); };
+          }
           c.onclick = () => {
             if (f.type === "multi") {
               const arr = new Set(state.answers[f.name] || []);
               arr.has(o.value) ? arr.delete(o.value) : arr.add(o.value);
               state.answers[f.name] = [...arr];
               c.classList.toggle("selected");
+              if (detailEl) {
+                const open = arr.has(o.value);
+                detailEl.classList.toggle("open", open);
+                if (open) setTimeout(() => detailEl.querySelector("input").focus(), 250);
+                else { delete state.answers[o.detail.name]; detailEl.querySelector("input").value = ""; detailEl.classList.remove("invalid"); }
+              }
             } else {
               state.answers[f.name] = o.value;
               box.querySelectorAll(".choice").forEach((x) => x.classList.remove("selected"));
@@ -106,6 +124,7 @@
             }
           };
           box.appendChild(c);
+          if (detailEl) box.appendChild(detailEl);
         });
         field.appendChild(box);
         if (!(f.autoNext && step.fields.length === 1)) hasNextButton = true;
@@ -174,6 +193,16 @@
       if (!bad && f.type === "number" && v != null) bad = (f.min != null && v < f.min) || (f.max != null && v > f.max);
       document.querySelector(`.field[data-name="${f.name}"]`)?.classList.toggle("invalid", !!bad);
       if (bad) ok = false;
+      // doplňujúce polia pri označených možnostiach
+      (f.options || []).forEach((o) => {
+        const d = o.detail;
+        if (!d) return;
+        const chosen = Array.isArray(v) ? v.includes(o.value) : v === o.value;
+        const dv = state.answers[d.name];
+        const dBad = chosen && ((d.required && (dv == null || dv === "")) || (dv != null && ((d.min != null && dv < d.min) || (d.max != null && dv > d.max))));
+        document.querySelector(`.field[data-name="${d.name}"]`)?.classList.toggle("invalid", !!dBad);
+        if (dBad) ok = false;
+      });
     });
     return ok;
   }
@@ -212,12 +241,16 @@
     const prices = CFG.pricePerM2[state.type];
     const ppm = prices[a.kraj] || Object.values(prices)[0];
     let mult = 1;
-    let area = 0, landArea = 0;
+    let area = 0, landArea = 0, extraArea = 0;
 
     WIZ[state.type].steps.forEach((s) =>
       s.fields.forEach((f) => {
         const v = a[f.name];
         if (f.area) area = Number(v) || 0;
+        (f.options || []).forEach((o) => {
+          const chosen = Array.isArray(v) ? v.includes(o.value) : v === o.value;
+          if (chosen && o.detail?.areaWeight) extraArea += (Number(a[o.detail.name]) || 0) * o.detail.areaWeight;
+        });
         if (f.landArea) landArea = Number(v) || 0;
         if (f.type === "toggle" && v && f.multiplier) mult *= f.multiplier;
         if (f.options) {
@@ -227,7 +260,7 @@
       })
     );
 
-    let mid = ppm * area * mult;
+    let mid = ppm * (area + extraArea) * mult;
     // Dom: pripočítaj hodnotu pozemku nad zastavanú plochu (polovičná cena stavebného pozemku)
     if (state.type === "dom" && landArea) {
       const landPpm = CFG.pricePerM2.pozemok[a.kraj] || 50;
