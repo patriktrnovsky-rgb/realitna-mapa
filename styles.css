@@ -405,11 +405,10 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 .nav__right { display: flex; align-items: center; gap: 22px; }
 .nav__login {
   display: inline-flex; align-items: center; gap: 6px; color: var(--text); font-weight: 500; font-size: .95rem;
-  text-decoration: underline; text-decoration-color: #cbd5e1; text-decoration-thickness: 1px; text-underline-offset: 5px;
-  transition: color .2s, text-decoration-color .2s;
+  text-decoration: none; transition: color .2s;
 }
 .nav__login .ic { display: inline-block; color: var(--muted); transition: color .2s; }
-.nav__login:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.nav__login:hover { color: var(--accent); }
 .nav__login:hover .ic { color: var(--accent); }
 @media (max-width: 680px) {
   .nav__right { gap: 12px; }
