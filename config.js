@@ -50,8 +50,8 @@ const ZAMER_STEP = {
       options: [
         { value: "predaj_hned", label: "Čo najskôr", icon: "zap", hot: true },
         { value: "predaj_3m", label: "Do 3 mesiacov", icon: "calendar", hot: true },
-        { value: "predaj_neskor", label: "Do roka", icon: "clock" },
-        { value: "zaujimavost", label: "Zatiaľ len zisťujem cenu", icon: "search" },
+        { value: "predaj_6m", label: "Do pol roka", icon: "hourglass" },
+        { value: "predaj_rok", label: "Do roka", icon: "clock" },
       ],
     },
   ],
