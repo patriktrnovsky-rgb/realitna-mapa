@@ -139,11 +139,11 @@ window.WIZARDS = {
         title: "Vlastníctvo a plán predaja",
         fields: [
           {
-            name: "vlastnictvo", type: "choice", label: "Typ vlastníctva", required: true,
+            name: "vlastnictvo", type: "select", label: "Typ vlastníctva", required: true,
             options: [
-              { value: "osobne", label: "Osobné", icon: "key" },
-              { value: "spoluvlastnictvo", label: "Spoluvlastníctvo", icon: "users" },
-              { value: "druzstevne", label: "Družstevné", icon: "building", multiplier: 0.95 },
+              { value: "osobne", label: "Osobné vlastníctvo" },
+              { value: "spoluvlastnictvo", label: "Spoluvlastníctvo" },
+              { value: "druzstevne", label: "Družstevné vlastníctvo", multiplier: 0.95 },
             ],
           },
           { ...ZAMER_STEP.fields[0], label: "Kedy plánujete predávať?", autoNext: false },
