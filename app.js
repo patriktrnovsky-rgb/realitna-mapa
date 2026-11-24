@@ -197,7 +197,7 @@
         hasNextButton = true;
       } else if (f.type === "toggle") {
         const l = el("label", { class: "switch-row" },
-          `<span class="switch-row__text"><strong>${f.label}</strong>${f.sub ? `<small>${f.sub}</small>` : ""}</span>
+          `${f.icon ? `<span class="choice__icon">${ICON(f.icon, 20)}</span>` : ""}<span class="switch-row__text"><strong>${f.label}</strong>${f.sub ? `<small>${f.sub}</small>` : ""}</span>
            <span class="switch"><input type="checkbox" role="switch" ${val ? "checked" : ""}/><span class="switch__track"><span class="switch__thumb"></span></span></span>`);
         l.querySelector("input").onchange = (e) => (state.answers[f.name] = e.target.checked);
         field.appendChild(l);

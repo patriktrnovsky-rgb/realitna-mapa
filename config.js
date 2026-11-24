@@ -88,7 +88,7 @@ window.WIZARDS = {
           { name: "poschodie", type: "number", label: "Číslo poschodia bytu", placeholder: "napr. 3", hint: "Prízemie = 0", min: -1, max: 60, required: true, half: true,
             maxFrom: "poschodiaBudova", maxFromError: "Poschodie nemôže byť vyššie ako počet poschodí" },
           { name: "poschodiaBudova", type: "number", label: "Počet poschodí v budove", placeholder: "napr. 8", min: 1, max: 60, required: true, half: true },
-          { name: "vytah", type: "toggle", label: "Výťah v budove", sub: "Budova má funkčný výťah", multiplier: 1.02 },
+          { name: "vytah", type: "toggle", label: "Výťah v budove", sub: "Budova má funkčný výťah", icon: "elevator", multiplier: 1.02 },
         ],
       },
       {

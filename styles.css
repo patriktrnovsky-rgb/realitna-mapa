@@ -766,3 +766,6 @@ img { max-width: 100%; height: auto; }
 .section-cta { display: flex; justify-content: center; margin-top: 40px; }
 .section-cta .btn { padding: 16px 32px; font-size: 1.05rem; }
 @media (max-width: 680px) { .section-cta { margin-top: 28px; } .section-cta .btn { width: 100%; } }
+.switch-row .choice__icon { margin-right: -4px; }
+.switch-row__text { flex: 1; }
+.switch-row:has(input:checked) .choice__icon { background: #fff; }
