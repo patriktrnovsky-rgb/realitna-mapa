@@ -44,6 +44,13 @@
     mapPin: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
     gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>',
     elevator: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="m9 9.5 3-3 3 3"/><path d="m9 14.5 3 3 3-3"/>',
+    balcony: '<path d="M8 12V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v7"/><path d="M3 12h18"/><path d="M3 20h18"/><path d="M5 12v8"/><path d="M9.5 12v8"/><path d="M14.5 12v8"/><path d="M19 12v8"/>',
+    loggia: '<rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M7 13h10"/><path d="M10 13v4"/><path d="M14 13v4"/>',
+    terrace: '<path d="M12 3c4.97 0 9 2.24 9 5H3c0-2.76 4.03-5 9-5Z"/><path d="M12 8v13"/><path d="M8 21h8"/><path d="M4 14h4l1 4"/><path d="M20 14h-4l-1 4"/>',
+    cellar: '<rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/>',
+    parking: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/>',
+    garage: '<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z"/><path d="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11"/><path d="M6 13h12"/><path d="M6 17h12"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
     arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
     arrowLeft: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
   };

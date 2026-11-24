@@ -115,34 +115,40 @@ window.WIZARDS = {
             name: "doplnky", type: "multi",
             options: [
               {
-                value: "balkon", label: "Balkón", multiplier: 1.03,
-                // po označení sa rozbalí pole na výmeru; areaWeight = koľko % plochy sa započíta do ceny
-                detail: { name: "balkonM2", label: "Výmera balkóna (m²)", placeholder: "napr. 5", min: 1, max: 100, required: true, areaWeight: 0.25 },
+                value: "balkon", label: "Balkón", icon: "balcony", multiplier: 1.03,
+                // po označení sa v dlaždici zobrazí pole na výmeru; areaWeight = koľko % plochy sa započíta do ceny
+                detail: { name: "balkonM2", label: "Výmera balkóna (m²)", placeholder: "Výmera, napr. 5", min: 1, max: 100, required: true, areaWeight: 0.25 },
               },
               {
-                value: "lodzia", label: "Lodžia", multiplier: 1.03,
-                detail: { name: "lodziaM2", label: "Výmera lodžie (m²)", placeholder: "napr. 6", min: 1, max: 100, required: true, areaWeight: 0.5 },
+                value: "lodzia", label: "Lodžia", icon: "loggia", multiplier: 1.03,
+                detail: { name: "lodziaM2", label: "Výmera lodžie (m²)", placeholder: "Výmera, napr. 6", min: 1, max: 100, required: true, areaWeight: 0.5 },
               },
               {
-                value: "terasa", label: "Terasa", multiplier: 1.05,
-                detail: { name: "terasaM2", label: "Výmera terasy (m²)", placeholder: "napr. 15", min: 1, max: 500, required: true, areaWeight: 0.25 },
+                value: "terasa", label: "Terasa", icon: "terrace", multiplier: 1.05,
+                detail: { name: "terasaM2", label: "Výmera terasy (m²)", placeholder: "Výmera, napr. 15", min: 1, max: 500, required: true, areaWeight: 0.25 },
               },
-              { value: "pivnica", label: "Pivnica", multiplier: 1.01 },
-              { value: "parking", label: "Parkovacie státie", multiplier: 1.03 },
-              { value: "garaz", label: "Garáž", multiplier: 1.05 },
-            ],
-          },
-          {
-            name: "vlastnictvo", type: "select", label: "Vlastníctvo", required: true,
-            options: [
-              { value: "osobne", label: "Osobné vlastníctvo" },
-              { value: "spoluvlastnictvo", label: "Spoluvlastníctvo" },
-              { value: "druzstevne", label: "Družstevné", multiplier: 0.95 },
+              { value: "pivnica", label: "Pivnica", icon: "cellar", multiplier: 1.01 },
+              { value: "parking", label: "Parkovacie státie", icon: "parking", multiplier: 1.03 },
+              { value: "garaz", label: "Garáž", icon: "garage", multiplier: 1.05 },
             ],
           },
         ],
       },
-      ZAMER_STEP,
+      {
+        id: "vlastnictvo",
+        title: "Vlastníctvo a plán predaja",
+        fields: [
+          {
+            name: "vlastnictvo", type: "choice", label: "Typ vlastníctva", required: true,
+            options: [
+              { value: "osobne", label: "Osobné", icon: "key" },
+              { value: "spoluvlastnictvo", label: "Spoluvlastníctvo", icon: "users" },
+              { value: "druzstevne", label: "Družstevné", icon: "building", multiplier: 0.95 },
+            ],
+          },
+          { ...ZAMER_STEP.fields[0], label: "Kedy plánujete predávať?", autoNext: false },
+        ],
+      },
     ],
   },
 

@@ -144,7 +144,7 @@
 
       if (f.type === "choice" || f.type === "multi") {
         if (f.label) field.appendChild(el("label", {}, f.label));
-        const box = el("div", { class: `choices ${f.type === "choice" ? "choices--single" : ""} ${f.options.some((o) => o.detail) ? "choices--list" : ""}` });
+        const box = el("div", { class: `choices ${f.type === "choice" ? "choices--single" : ""}` });
         f.options.forEach((o) => {
           const selected = f.type === "multi" ? (val || []).includes(o.value) : val === o.value;
           const c = el("button", { type: "button", class: `choice ${selected ? "selected" : ""}` },
@@ -154,8 +154,7 @@
           if (o.detail) {
             const d = o.detail;
             detailEl = el("div", { class: `field choice-detail ${selected ? "open" : ""}`, "data-name": d.name },
-              `<div><label for="${d.name}">${d.label}</label>
-               <div class="input-unit"><input id="${d.name}" type="number" inputmode="decimal" min="${d.min ?? ""}" max="${d.max ?? ""}" placeholder="${d.placeholder || ""}" /><span>m²</span></div>
+              `<div><div class="input-unit"><input id="${d.name}" type="number" inputmode="decimal" min="${d.min ?? ""}" max="${d.max ?? ""}" placeholder="${d.placeholder || "Výmera"}" aria-label="${d.label}" /><span>m²</span></div>
                <div class="err">Zadajte výmeru</div></div>`);
             const inp = detailEl.querySelector("input");
             if (state.answers[d.name] != null) inp.value = state.answers[d.name];
@@ -167,6 +166,7 @@
               arr.has(o.value) ? arr.delete(o.value) : arr.add(o.value);
               state.answers[f.name] = [...arr];
               c.classList.toggle("selected");
+              c.parentElement.classList.contains("choice-card") && c.parentElement.classList.toggle("selected", arr.has(o.value));
               if (detailEl) {
                 const open = arr.has(o.value);
                 detailEl.classList.toggle("open", open);
@@ -181,8 +181,12 @@
               if (f.autoNext && step.fields.length === 1) setTimeout(next, 220);
             }
           };
-          box.appendChild(c);
-          if (detailEl) box.appendChild(detailEl);
+          if (detailEl) {
+            // dlaždica s poľom na m² priamo v nej
+            const card = el("div", { class: `choice-card ${selected ? "selected" : ""}` });
+            card.append(c, detailEl);
+            box.appendChild(card);
+          } else box.appendChild(c);
         });
         field.appendChild(box);
         if (!(f.autoNext && step.fields.length === 1)) hasNextButton = true;
@@ -233,8 +237,8 @@
     CZ: `<svg class="flag" viewBox="0 0 9 6" aria-hidden="true"><rect width="9" height="6" fill="#d7141a"/><rect width="9" height="3" fill="#fff"/><path d="M0 0l4.5 3L0 6z" fill="#11457e"/></svg>`,
   };
   const PREDVOLBY = [
-    { value: "+421", label: "Slovensko +421", html: `${FLAG.SK}<span>+421</span>`, country: "SK" },
-    { value: "+420", label: "Česko +420", html: `${FLAG.CZ}<span>+420</span>`, country: "CZ" },
+    { value: "+421", label: "Slovensko +421", html: `${FLAG.SK}<span>+421</span>`, country: "SK", placeholder: "905 123 456" },
+    { value: "+420", label: "Česko +420", html: `${FLAG.CZ}<span>+420</span>`, country: "CZ", placeholder: "777 123 456" },
   ];
   // vráti 9-miestne národné číslo (bez predvoľby a úvodnej nuly)
   const nationalDigits = (raw) => {
@@ -318,7 +322,7 @@
       <div class="step__body">
         <div class="field" data-name="meno"><label for="meno">Meno a priezvisko</label><input id="meno" type="text" autocomplete="name" /><div class="err">Zadajte meno</div></div>
         <div class="field" data-name="email"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" /><div class="err">Zadajte platný e-mail</div></div>
-        <div class="field" data-name="telefon"><label for="telefon">Telefón</label><div class="phone" id="phoneWrap"><input id="telefon" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="900 123 456" /></div><div class="err">Zadajte platné telefónne číslo (9 číslic)</div></div>
+        <div class="field" data-name="telefon"><label for="telefon">Telefón</label><div class="phone" id="phoneWrap"><input id="telefon" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="905 123 456" /></div><div class="err">Zadajte platné telefónne číslo (9 číslic)</div></div>
         <p class="privacy-note">${ICON("lock", 16)}<span>Odoslaním súhlasíte so <a href="#" target="_blank">spracovaním osobných údajov</a> za účelom zaslania odhadu a odporučenia realitného makléra.</span></p>
       </div>
       <div class="teaser">
@@ -330,13 +334,16 @@
     // predvoľba s vlajkou + formátovanie čísla
     if (!state.answers.predvolba) state.answers.predvolba = "+421";
     const phoneWrap = wrap.querySelector("#phoneWrap");
+    const setPh = () => (phoneWrap.querySelector("input").placeholder = PREDVOLBY.find((p) => p.value === state.answers.predvolba)?.placeholder || "");
     const ccSelect = customSelect({ name: "predvolba", options: PREDVOLBY }, state.answers.predvolba, (v) => {
       state.answers.predvolba = v;
+      setPh();
       phoneWrap.querySelector("input").focus();
     });
     ccSelect.classList.add("phone__cc");
     phoneWrap.prepend(ccSelect);
     const tel = phoneWrap.querySelector("input");
+    setPh();
     tel.addEventListener("input", () => {
       const raw = tel.value;
       // vložené číslo s +420 / +421 prepne krajinu
@@ -346,6 +353,7 @@
         const o = PREDVOLBY.find((p) => p.value === state.answers.predvolba);
         ccSelect.querySelector(".cselect__value").innerHTML = o.html;
         ccSelect.querySelectorAll(".cselect__opt").forEach((li, i) => li.classList.toggle("selected", PREDVOLBY[i] === o));
+        setPh();
       }
       tel.value = formatPhone(nationalDigits(raw));
     });
