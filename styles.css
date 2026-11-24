@@ -813,3 +813,6 @@ img { max-width: 100%; height: auto; }
 .result__perks strong { display: block; font-size: .95rem; color: var(--text); }
 .result__perks span:not(.result__perk-icon) { display: block; font-size: .88rem; color: var(--muted); line-height: 1.4; margin-top: 2px; }
 @media (max-width: 560px) { .result__perks { grid-template-columns: 1fr; } }
+
+.range__mid strong.is-up { color: #16a34a; }
+.range__mid strong.is-down { color: #dc2626; }

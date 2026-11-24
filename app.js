@@ -455,7 +455,9 @@
       mid += Math.max(0, landArea - area) * landPpm * 0.5;
     }
     const s = CFG.rangeSpread;
-    return { mid: roundTo(mid), low: roundTo(mid * (1 - s)), high: roundTo(mid * (1 + s)), ppm: Math.round(mid / (area || 1)) };
+    // Porovnanie ceny za m² s priemerom podobných nehnuteľností v lokalite (kraji)
+    const diff = area ? Math.round((mid / area / ppm - 1) * 100) : 0;
+    return { mid: roundTo(mid), low: roundTo(mid * (1 - s)), high: roundTo(mid * (1 + s)), ppm: Math.round(mid / (area || 1)), diff };
   }
 
   // ---------- Odoslanie leadu ----------
@@ -517,7 +519,7 @@
           <div class="range__bar"><span class="range__marker"></span></div>
           <div class="range__labels">
             <div><small>Spodná hranica</small><strong>${fmt(est.low)}</strong></div>
-            <div class="range__mid"><small>Najpravdepodobnejšia</small><strong>${fmt(est.mid)}</strong></div>
+            <div class="range__mid"><small>Oproti okoliu</small><strong class="${est.diff > 0 ? "is-up" : est.diff < 0 ? "is-down" : ""}">${est.diff > 0 ? "+" : est.diff < 0 ? "−" : ""}${Math.abs(est.diff)} %</strong></div>
             <div class="range__high"><small>Horná hranica</small><strong>${fmt(est.high)}</strong></div>
           </div>
         </div>
