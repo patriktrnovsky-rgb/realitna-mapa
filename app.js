@@ -527,8 +527,12 @@
           <div>
             <h3>${sell ? `${meno ? meno + ", o" : "O"}zve sa vám náš realitný špecialista` : "Odhad sme poslali na váš e-mail"}</h3>
             <p>${sell
-              ? "Online odhad je dobrý začiatok. Presnú cenu však najlepšie určí skúsený špecialista z vášho okolia, ktorý nehnuteľnosť uvidí naživo. Do 24 hodín sa vám ozve, zdarma s vami prejde presnú cenu a poradí, ako postupovať pri predaji. Bez záväzkov, rozhodnutie je vždy na vás."
+              ? "Online odhad je dobrý začiatok. Presnú cenu však najlepšie určí skúsený špecialista z vášho okolia, ktorý nehnuteľnosť uvidí naživo."
               : `Na <strong>${lead.contact.email}</strong> sme poslali odhad. Keď budete chcieť poznať presnú cenu, náš špecialista vám ju zdarma pomôže určiť.`}</p>
+            ${sell ? `<ul class="result__perks">
+              <li><span class="result__perk-icon">${ICON("clock", 18)}</span><div><strong>Ozve sa do 24 hodín</strong><span>Prejde s vami cenu aj ďalšie kroky.</span></div></li>
+              <li><span class="result__perk-icon">${ICON("gift", 18)}</span><div><strong>Zadarmo a bez záväzkov</strong><span>Rozhodnutie je vždy na vás.</span></div></li>
+            </ul>` : ""}
           </div>
         </div>
         <p class="result__note">Online odhad je orientačný a vychádza z reálnych predajov vo vašej lokalite.</p>
