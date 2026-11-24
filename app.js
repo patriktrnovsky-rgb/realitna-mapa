@@ -523,7 +523,7 @@
               : `Na <strong>${lead.contact.email}</strong> sme poslali odhad. Keď budete chcieť poznať presnú cenu, náš špecialista vám ju zdarma pomôže určiť.`}</p>
           </div>
         </div>
-        <p class="result__note">Online odhad je orientačný a vychádza z priemerných cien v regióne.</p>
+        <p class="result__note">Online odhad je orientačný a vychádza z reálnych predajov vo vašej lokalite.</p>
         ${document.body.dataset.page === "article" ? `<button type="button" class="btn btn--primary result__back" id="resultBack">Pokračovať v čítaní článku ${ICON("arrowRight", 18)}</button>` : ""}
       </div>`;
   }
