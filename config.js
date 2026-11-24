@@ -42,7 +42,7 @@ const LOKALITA_STEP = {
 const ZAMER_STEP = {
   id: "zamer",
   title: "Kedy plánujete predávať?",
-  subtitle: "Podľa toho vám odporučíme makléra s tým správnym prístupom.",
+  subtitle: "Podľa toho vám odporučíme makléra so správnym prístupom.",
   fields: [
     {
       name: "zamer", type: "choice", required: true, autoNext: true,
@@ -85,7 +85,7 @@ window.WIZARDS = {
         title: "Rozloha a poschodie",
         fields: [
           { name: "plocha", type: "number", label: "Úžitková plocha (m²)", min: 10, max: 500, required: true, area: true },
-          { name: "poschodie", type: "number", label: "Číslo poschodia bytu", placeholder: "napr. 3", hint: "Prízemie = 0", min: -1, max: 60, required: true, half: true,
+          { name: "poschodie", type: "number", label: "Číslo poschodia bytu", placeholder: "napr. 3", hint: "Ak je byt na prízemí, zadajte 0", min: -1, max: 60, required: true, half: true,
             maxFrom: "poschodiaBudova", maxFromError: "Poschodie nemôže byť vyššie ako počet poschodí" },
           { name: "poschodiaBudova", type: "number", label: "Počet poschodí v budove", placeholder: "napr. 8", min: 1, max: 60, required: true, half: true },
           { name: "vytah", type: "toggle", label: "Výťah v budove", sub: "Budova má funkčný výťah", icon: "elevator", multiplier: 1.02 },

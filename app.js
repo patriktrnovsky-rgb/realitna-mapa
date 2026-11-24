@@ -323,7 +323,7 @@
         <div class="field" data-name="meno"><label for="meno">Meno a priezvisko</label><input id="meno" type="text" autocomplete="name" /><div class="err">Zadajte meno</div></div>
         <div class="field" data-name="email"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" /><div class="err">Zadajte platný e-mail</div></div>
         <div class="field" data-name="telefon"><label for="telefon">Telefón</label><div class="phone" id="phoneWrap"><input id="telefon" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="905 123 456" /></div><div class="err">Zadajte platné telefónne číslo (9 číslic)</div></div>
-        <p class="privacy-note">${ICON("lock", 16)}<span>Odoslaním súhlasíte so <a href="#" target="_blank">spracovaním osobných údajov</a> za účelom zaslania odhadu a odporučenia realitného makléra.</span></p>
+        <p class="privacy-note">${ICON("lock", 16)}<span>Odoslaním súhlasíte so <a href="#" target="_blank">spracovaním osobných údajov</a> na účel zaslania odhadu a odporučenia realitného makléra.</span></p>
       </div>
       <div class="teaser">
         <div class="teaser__label">Vaša odhadovaná cena</div>
