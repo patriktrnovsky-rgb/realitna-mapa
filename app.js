@@ -519,7 +519,7 @@
           <div class="range__bar"><span class="range__marker"></span></div>
           <div class="range__labels">
             <div><small>Spodná hranica</small><strong>${fmt(est.low)}</strong></div>
-            <div class="range__mid"><small>Oproti okoliu</small><strong class="${est.diff > 0 ? "is-up" : est.diff < 0 ? "is-down" : ""}">${est.diff > 0 ? "+" : est.diff < 0 ? "−" : ""}${Math.abs(est.diff)} %</strong></div>
+            <div class="range__mid"><small>Oproti priemeru</small><strong class="${est.diff > 0 ? "is-up" : est.diff < 0 ? "is-down" : ""}">${est.diff > 0 ? "+" : est.diff < 0 ? "−" : ""}${Math.abs(est.diff)} %</strong></div>
             <div class="range__high"><small>Horná hranica</small><strong>${fmt(est.high)}</strong></div>
           </div>
         </div>
