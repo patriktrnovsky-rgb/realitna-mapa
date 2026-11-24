@@ -501,6 +501,20 @@
   const ZAMER_OPTIONS = () =>
     WIZ[state.type].steps.flatMap((s) => s.fields).find((f) => f.name === "zamer")?.options || [];
 
+  // Súhrn nehnuteľnosti vo výsledku (typ · dispozícia · m², adresa)
+  function propertySummary() {
+    const a = state.answers, w = WIZ[state.type];
+    const kindField = { byt: "izby", dom: "typDomu", pozemok: "druh" }[state.type];
+    const opt = w.steps.flatMap((s) => s.fields).find((f) => f.name === kindField)?.options?.find((o) => o.value === a[kindField]);
+    const esc = (t) => String(t || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const parts = [w.label, opt?.label, a.plocha ? `${a.plocha} m²` : ""].filter(Boolean);
+    const addr = [a.ulica, a.obec].filter(Boolean).map(esc).join(", ");
+    return `<div class="result__prop">
+      <span class="result__prop-icon">${ICON(w.icon, 22)}</span>
+      <div><strong>${parts.map(esc).join(" · ")}</strong>${addr ? `<span>${ICON("mapPin", 14)} ${addr}</span>` : ""}</div>
+    </div>`;
+  }
+
   function renderResult(est, lead) {
     state.done = true;
     $("#progressBar").style.width = "100%";
@@ -510,6 +524,7 @@
     const meno = (lead.contact.meno || "").split(" ")[0];
     $("#stepForm").innerHTML = `
       <div class="step result">
+        ${propertySummary()}
         <div class="result__ok">${ICON("check", 28)}</div>
         <div class="result__label">Odhadovaná trhová cena</div>
         <div class="result__price">${fmt(est.mid)}</div>
