@@ -501,7 +501,7 @@
   const ZAMER_OPTIONS = () =>
     WIZ[state.type].steps.flatMap((s) => s.fields).find((f) => f.name === "zamer")?.options || [];
 
-  // Súhrn nehnuteľnosti vo výsledku (typ · dispozícia · m², adresa)
+  // Súhrn nehnuteľnosti vo výsledku (typ, dispozícia, m², adresa)
   function propertySummary() {
     const a = state.answers, w = WIZ[state.type];
     const kindField = { byt: "izby", dom: "typDomu", pozemok: "druh" }[state.type];
@@ -511,7 +511,7 @@
     const addr = [a.ulica, a.obec].filter(Boolean).map(esc).join(", ");
     return `<div class="result__prop">
       <span class="result__prop-icon">${ICON(w.icon, 22)}</span>
-      <div><strong>${parts.map(esc).join(" · ")}</strong>${addr ? `<span>${ICON("mapPin", 14)} ${addr}</span>` : ""}</div>
+      <div><strong>${parts.map(esc).join(", ")}</strong>${addr ? `<span>${ICON("mapPin", 14)} ${addr}</span>` : ""}</div>
     </div>`;
   }
 
