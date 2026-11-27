@@ -872,3 +872,12 @@ img { max-width: 100%; height: auto; }
   @supports (overflow-x: clip) { .modal__dialog, .modal .wizard { overflow-x: clip; } }
   .modal .wizard { max-width: 100%; }
 }
+
+/* Výsledok na mobile: „Späť na hlavnú stránku“ vždy viditeľné, prilepené dole */
+@media (max-width: 680px) {
+  .result__back {
+    position: sticky; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 2;
+    width: 100%; margin-top: 20px;
+    box-shadow: 0 10px 30px -6px rgba(37, 99, 235, .55), 0 0 0 8px #fff;
+  }
+}
