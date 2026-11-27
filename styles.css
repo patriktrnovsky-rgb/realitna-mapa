@@ -867,7 +867,8 @@ img { max-width: 100%; height: auto; }
 
 /* iOS: políčka pod 16 px spôsobujú automatický zoom pri ťuknutí → formulár „jazdí“ a dá sa ťahať do strán */
 @media (max-width: 680px) {
-  input, select, textarea, .cselect__trigger { font-size: 16px; }
+  /* !important: pravidlá typu .field input[type=number] { font: inherit } by inak vrátili 15,5 px */
+  input, select, textarea, .cselect__trigger { font-size: 16px !important; }
   .modal__dialog { overflow-x: hidden; }
   @supports (overflow-x: clip) { .modal__dialog, .modal .wizard { overflow-x: clip; } }
   .modal .wizard { max-width: 100%; }
