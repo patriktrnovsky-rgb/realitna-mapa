@@ -15,6 +15,9 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Mobil: nič nesmie presahovať do strán, inak web pri potiahnutí prstom „pláva“ doľava/doprava */
+html, body { max-width: 100%; overflow-x: hidden; }
+@supports (overflow-x: clip) { html, body { overflow-x: clip; } }
 body {
   margin: 0;
   font-family: "Inter", system-ui, sans-serif;
@@ -195,7 +198,7 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 
 /* POROVNANIE CENY */
 .btn--auto { width: auto; margin-top: 12px; }
-.split .pill { margin-bottom: 14px; }
+.split .pill { margin-bottom: 24px; }
 .accent-text { color: var(--accent); }
 .compare { padding: 28px; display: grid; gap: 22px; }
 .compare__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; font-weight: 500; }
@@ -340,11 +343,13 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 
   /* Typy nehnuteľností: kompaktné riadky */
   .types { gap: 10px; }
-  .type-card { flex-direction: row; gap: 14px; padding: 12px 12px 12px 12px; border-radius: 16px; text-align: left; }
-  .type-card__icon { width: 52px; height: 52px; border-radius: 14px; }
-  .type-card__icon .ic { width: 26px; height: 26px; }
-  .type-card__label { flex: 1; font-size: 1.1rem; }
-  .type-card__btn { width: auto; margin: 0; padding: 10px 14px; font-size: .9rem; border-radius: 10px; white-space: nowrap; }
+  .type-card { flex-direction: row; gap: 12px; padding: 12px; border-radius: 16px; text-align: left; }
+  .type-card__icon { width: 46px; height: 46px; border-radius: 13px; }
+  .type-card__icon .ic { width: 24px; height: 24px; }
+  .type-card__label { flex: 1; min-width: 0; font-size: 1.1rem; }
+  /* rovnaká šírka tlačidiel -> zarovnané pod sebou */
+  .type-card__btn { flex: 0 0 7.5rem; width: 7.5rem; min-width: 0; margin: 0; padding: 10px 12px; font-size: .9rem; border-radius: 10px; white-space: nowrap; }
+  .type-card__what { display: none; } /* na mobile len „Oceniť →“, typ je hneď vedľa */
 
   /* Sekcie */
   .section { padding: 52px 0; }
@@ -408,11 +413,12 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
   /* Lepkavá CTA lišta */
   .sticky-cta {
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    padding: 10px 4% calc(10px + env(safe-area-inset-bottom)); /* rovnaké okraje ako .container (92 %) */
     background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px); border-top: 1px solid var(--line);
     transform: translateY(110%); transition: transform .3s ease;
   }
   .sticky-cta.show { transform: none; }
+  .sticky-cta .btn { display: flex; width: 100%; padding: 14px 16px; white-space: nowrap; }
   .footer { padding-bottom: 96px; }
 }
 
@@ -434,7 +440,8 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
   .nav__login .ic { color: var(--accent); }
 }
 .logo { white-space: nowrap; }
-@media (max-width: 680px) { .hide-sm { display: none; } }
+.br-sm { display: none; }
+@media (max-width: 680px) { .hide-sm { display: none; } .br-sm { display: inline; } }
 
 /* Vlastný selectbox v štýle wizarda */
 .cselect { position: relative; }
@@ -821,3 +828,23 @@ img { max-width: 100%; height: auto; }
 .result__prop-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--bg); color: var(--accent); display: grid; place-items: center; flex-shrink: 0; }
 .result__prop strong { display: block; font-size: .98rem; }
 .result__prop span:not(.result__prop-icon) { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .88rem; margin-top: 2px; }
+
+
+/* Bodky + časovač pod karuselom (len mobil) */
+.carousel-dots { display: none; }
+@media (max-width: 680px) {
+  .benefits { padding-bottom: 8px; }
+  .carousel-dots { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 14px; }
+  .carousel-dots__dot {
+    position: relative; overflow: hidden; width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px;
+    background: #cbd5e1; cursor: pointer; transition: width .3s ease, background .3s ease;
+  }
+  .carousel-dots__dot.is-active { width: 32px; background: var(--accent-soft); }
+  .carousel-dots__dot::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--accent);
+    transform: scaleX(0); transform-origin: left center;
+  }
+  .carousel-dots__dot.is-active::after { transform: scaleX(1); }
+  .carousel-dots__dot.is-running::after { animation: dot-timer var(--dur, 5000ms) linear forwards; }
+}
+@keyframes dot-timer { from { transform: scaleX(0); } to { transform: scaleX(1); } }

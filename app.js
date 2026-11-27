@@ -30,7 +30,7 @@
     const b = el("button", { class: "type-card", type: "button" },
       `<span class="type-card__icon">${ICON(w.icon, 32)}</span>
        <span class="type-card__label">${w.label}</span>
-       <span class="type-card__btn">Oceniť ${w.label.toLowerCase()} ${ICON("arrowRight", 18)}</span>`);
+       <span class="type-card__btn">Oceniť<span class="type-card__what">&nbsp;${w.label.toLowerCase()}</span> ${ICON("arrowRight", 18)}</span>`);
     b.onclick = () => startWizard(key);
     typesEl?.appendChild(b);
   });
@@ -624,6 +624,78 @@
     addEventListener("resize", sync);
     sync();
   }
+
+  // ---------- Mobil: karusel „Prečo si nechať oceniť“ – bodky + časovač ----------
+  (function benefitsCarousel() {
+    const track = $(".benefits");
+    if (!track) return;
+    const slides = [...track.children];
+    if (slides.length < 2) return;
+    const DUR = 5000; // ms na jednu kartu
+    const mq = matchMedia("(max-width: 680px)");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+
+    const dots = el("div", { class: "carousel-dots", role: "tablist", "aria-label": "Výhody" });
+    dots.style.setProperty("--dur", DUR + "ms");
+    slides.forEach((_, i) => {
+      const d = el("button", { type: "button", class: "carousel-dots__dot", "aria-label": `Výhoda ${i + 1} z ${slides.length}` }, "");
+      d.onclick = () => { go(i); };
+      dots.appendChild(d);
+    });
+    track.after(dots);
+
+    let idx = 0, timer = null, visible = false, touching = false, settle = null;
+
+    const canPlay = () => mq.matches && !reduce.matches && visible && !touching && !document.hidden;
+
+    function current() {
+      const r = track.getBoundingClientRect(), mid = r.left + r.width / 2;
+      let best = 0, bestD = Infinity;
+      slides.forEach((s, i) => {
+        const sr = s.getBoundingClientRect(), d = Math.abs(sr.left + sr.width / 2 - mid);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      return best;
+    }
+
+    function go(i) {
+      const s = slides[i], r = track.getBoundingClientRect(), sr = s.getBoundingClientRect();
+      const left = track.scrollLeft + (sr.left - r.left) - (r.width - sr.width) / 2;
+      track.scrollTo({ left, behavior: reduce.matches ? "auto" : "smooth" });
+      setActive(i);
+    }
+
+    function setActive(i) {
+      idx = i;
+      clearTimeout(timer);
+      [...dots.children].forEach((d, j) => {
+        d.classList.toggle("is-active", j === i);
+        d.setAttribute("aria-current", j === i ? "true" : "false");
+        d.classList.remove("is-running");
+      });
+      const active = dots.children[i];
+      if (canPlay()) {
+        void active.offsetWidth; // reštart animácie časovača
+        active.classList.add("is-running");
+        timer = setTimeout(() => go((idx + 1) % slides.length), DUR);
+      }
+    }
+
+    // posun prstom: zastav, po dobehnutí pokračuj od aktuálnej karty
+    track.addEventListener("touchstart", () => { touching = true; clearTimeout(timer); dots.children[idx].classList.remove("is-running"); }, { passive: true });
+    const release = () => { touching = false; clearTimeout(settle); settle = setTimeout(() => setActive(current()), 400); };
+    track.addEventListener("touchend", release, { passive: true });
+    track.addEventListener("touchcancel", release, { passive: true });
+    track.addEventListener("scroll", () => {
+      clearTimeout(settle);
+      settle = setTimeout(() => { const c = current(); if (c !== idx || !timer) setActive(c); }, 150);
+    }, { passive: true });
+
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; setActive(current()); }, { threshold: 0.5 }).observe(track);
+    document.addEventListener("visibilitychange", () => setActive(current()));
+    mq.addEventListener?.("change", () => setActive(current()));
+    setActive(0);
+  })();
 
   hydrateIcons();
   if ($("#year")) $("#year").textContent = new Date().getFullYear();
