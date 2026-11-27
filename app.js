@@ -631,7 +631,7 @@
     if (!track) return;
     const slides = [...track.children];
     if (slides.length < 2) return;
-    const DUR = 5000; // ms na jednu kartu
+    const DUR = 3500; // ms na jednu kartu
     const mq = matchMedia("(max-width: 680px)");
     const reduce = matchMedia("(prefers-reduced-motion: reduce)");
 
