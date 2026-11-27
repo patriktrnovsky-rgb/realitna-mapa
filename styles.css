@@ -868,3 +868,10 @@ img { max-width: 100%; height: auto; }
   .carousel-dots__dot.is-running::after { animation: dot-timer var(--dur, 5000ms) linear forwards; }
 }
 @keyframes dot-timer { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* iOS: políčka pod 16 px spôsobujú automatický zoom pri ťuknutí → formulár „jazdí“ a dá sa ťahať do strán */
+@media (max-width: 680px) {
+  input, select, textarea, .cselect__trigger { font-size: 16px; }
+  .modal__dialog { overflow-x: hidden; }
+  .modal .wizard { max-width: 100%; }
+}
