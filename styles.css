@@ -786,7 +786,7 @@ img { max-width: 100%; height: auto; }
   .posts--carousel { margin: 0 -4vw; padding: 4px 4vw 16px; gap: 14px; }
   .posts--carousel .post { flex-basis: 82%; scroll-snap-align: center; }
 }
-.result__back { margin-top: 18px; }
+.result__back { display: flex; width: fit-content; max-width: 100%; margin: 18px auto 0; }
 .result__back .ic { display: inline-block; }
 .brokers { align-items: end; } .brokers__intro { position: static; }
 .section h2, .platform h2, .brokers h2 { line-height: 1.2; }

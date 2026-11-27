@@ -546,14 +546,12 @@
             <p>${sell
               ? "Online odhad je dobrý začiatok. Presnú cenu však najlepšie určí skúsený špecialista z vášho okolia, ktorý nehnuteľnosť uvidí naživo."
               : `Na <strong>${lead.contact.email}</strong> sme poslali odhad. Keď budete chcieť poznať presnú cenu, náš špecialista vám ju zdarma pomôže určiť.`}</p>
-            ${sell ? `<ul class="result__perks">
-              <li><span class="result__perk-icon">${ICON("clock", 18)}</span><div><strong>Ozve sa do 24 hodín</strong><span>Prejde s vami cenu aj ďalšie kroky.</span></div></li>
-              <li><span class="result__perk-icon">${ICON("gift", 18)}</span><div><strong>Zadarmo a bez záväzkov</strong><span>Rozhodnutie je vždy na vás.</span></div></li>
-            </ul>` : ""}
           </div>
         </div>
         <p class="result__note">Online odhad je orientačný a vychádza z reálnych predajov vo vašej lokalite.</p>
-        ${document.body.dataset.page === "article" ? `<button type="button" class="btn btn--primary result__back" id="resultBack">Pokračovať v čítaní článku ${ICON("arrowRight", 18)}</button>` : ""}
+        ${document.body.dataset.page === "article"
+          ? `<button type="button" class="btn btn--primary result__back" id="resultBack">Pokračovať v čítaní článku ${ICON("arrowRight", 18)}</button>`
+          : `<button type="button" class="btn btn--primary result__back" id="resultBack" data-home>${ICON("arrowLeft", 18)} Späť na hlavnú stránku</button>`}
       </div>`;
   }
 
@@ -574,7 +572,13 @@
   );
 
   // Mobilná CTA lišta: zobraziť po odscrollovaní z hero, skryť počas wizardu
-  document.addEventListener("click", (e) => { if (e.target.closest("#resultBack")) closeModal(); });
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("#resultBack");
+    if (!b) return;
+    if (b.hasAttribute("data-home") && !/^\/(index\.html)?$/.test(location.pathname)) { location.href = "/"; return; }
+    closeModal();
+    if (b.hasAttribute("data-home")) scrollTo({ top: 0, behavior: "smooth" });
+  });
 
   function updateSticky() {
     const sticky = $("#stickyCta");
