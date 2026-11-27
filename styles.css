@@ -118,7 +118,18 @@ h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; letter-spacing: -0
 .choice.selected .choice__check { background: var(--accent); border-color: var(--accent); color: #fff; }
 .choices--single .choice__check { border-radius: 50%; }
 
-.hint { color: var(--muted); font-size: .8rem; margin-top: 4px; }
+/* Pomocný text ako jemná bublina (tooltip) so šípkou k políčku */
+.hint {
+  position: relative; display: block; width: fit-content; max-width: 100%;
+  margin-top: 10px; padding: 7px 11px; border-radius: 10px;
+  background: var(--accent-soft); border: 1px solid rgba(37, 99, 235, .18);
+  color: var(--accent); font-size: .8rem; font-weight: 500; line-height: 1.35;
+}
+.hint::before {
+  content: ""; position: absolute; top: -5px; left: 16px; width: 8px; height: 8px;
+  background: inherit; border-left: 1px solid rgba(37, 99, 235, .18); border-top: 1px solid rgba(37, 99, 235, .18);
+  transform: rotate(45deg); border-radius: 2px 0 0 0;
+}
 .field.invalid .hint { display: none; }
 /* Prepínač (zapnúť / vypnúť) */
 .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; cursor: pointer; transition: border-color .15s, background .15s; }
